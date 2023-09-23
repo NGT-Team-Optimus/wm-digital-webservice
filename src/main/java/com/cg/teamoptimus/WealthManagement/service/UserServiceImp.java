@@ -1,6 +1,8 @@
 package com.cg.teamoptimus.WealthManagement.service;
 
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,24 +34,6 @@ public class UserServiceImp implements IUserService {
 	
 
 	@Override
-	public String signin(String email,String password) {
-		String result = userRepo.findPasswordByEmail(email);
-		if (result != null) {
-            if (result.equals(password)) {
-                logger.info("Successfully logged in "+result);
-                return "Successfully Logged In";
-            } else {
-                logger.info("Invalid password"+result);
-                return "Invalid password";
-           }
-        } else {
-            logger.info("User does not exist"+result);
-            return "User does not exist";
-        }
-    }
-
-
-	@Override
 	public String updateUserDetails(User user) {
 		if(userRepo.existsByuserId(user.getUserId())) {
 			userRepo.save(user);
@@ -60,7 +44,30 @@ public class UserServiceImp implements IUserService {
 			return "No User Found";
 		}
 	}
-	
+	@Override
+	public List<User> getAllUsers() {
+		List<User> users=userRepo.findAll();
+		return users;
+	}
+	@Override
+	public String loginUser(User user) {
+		String result=userRepo.findPasswordByEmail(user.getEmail());
+		if(result!=null) {
+			if(result.equals(user.getPassword())) {
+				logger.info("Successfully logged in");
+				return "success";
+			}
+			else {
+				logger.info("invalid password");
+				return "invalid password";
+			}
+		}
+		else {
+			logger.info("No User Found");
+			return "No User Found";
+		}
+		
+	}
 	
 
 }

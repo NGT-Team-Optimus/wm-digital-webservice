@@ -1,6 +1,9 @@
 package com.cg.teamoptimus.WealthManagement.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,16 +26,22 @@ public class UserController {
 		return "Registered successfully";
 	}
 		
-	@PostMapping("/signin")
-	public String signin(@RequestBody String email, String password) {
-		userService.signin(email,password);
-		return "Logged In";
-	}
 	
 	@PostMapping("/update")
 	public String updateUserDetails(@RequestBody User user) {
 		userService.updateUserDetails(user);
 		return "updated successfully";
+	}
+	@GetMapping("/all")
+	public List<User> getAllUsers(){
+		return userService.getAllUsers();
+		
+	}
+	
+	@PostMapping("/login")
+	public String loginUser(@RequestBody User user) {
+		userService.loginUser(user);
+		return "Logged In";
 	}
 	
 	

@@ -1,5 +1,7 @@
 package com.cg.teamoptimus.WealthManagement.entity;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,6 +20,10 @@ public class User {
 	private String password;
 	private String userSSN;
 	private String status;
+	
+	
+	private List<Goal> goals;
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -57,7 +63,9 @@ public class User {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public User() {
+	
+	
+		public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -69,6 +77,7 @@ public class User {
 		this.password = password;
 		this.userSSN=userSSN;
 		this.status=status;
+		
 	}
 	
 	
