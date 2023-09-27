@@ -5,10 +5,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Home {
+	
 	@RequestMapping("/welcome")
 	public String welcome() {
 		String text = "Welcome";
 		return text;
+	}
+	
+	@RequestMapping("/getusers")
+	public String getUser() {
+		
+		return "{\"name\":\"Pratik\"}";
 	}
 
 }

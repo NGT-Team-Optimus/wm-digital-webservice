@@ -18,9 +18,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 			return new User("Pratik","Pratik123",new ArrayList<>());
 		}else {
 			throw new UsernameNotFoundException("User not Found!!");
-		}
-		
+		}	
 	}
-
-
 }
