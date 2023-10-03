@@ -3,7 +3,6 @@ package com.cg.teamoptimus.WealthManagement.model;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -21,7 +20,7 @@ public class User {
 	private String password;
 	private String userSSN;
 	private String status;
-	@DBRef
+	
 	private List<Goal> goals;
 	
 	public int getUserId() {
@@ -64,7 +63,12 @@ public class User {
 		this.status = status;
 	}
 	
-	
+	public List<Goal> getGoals() {
+		return goals;
+	}
+	public void setGoals(List<Goal> goals) {
+		this.goals = goals;
+	}
 		public User() {
 		super();
 		// TODO Auto-generated constructor stub
