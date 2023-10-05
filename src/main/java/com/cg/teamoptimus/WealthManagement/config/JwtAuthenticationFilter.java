@@ -7,21 +7,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-//import jakarta.servlet.FilterChain;
-//import jakarta.servlet.ServletException;
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-
-import com.cg.teamoptimus.WealthManagement.helper.JwtUtil;
 import com.cg.teamoptimus.WealthManagement.services.CustomUserDetailsService;
-
-import java.io.IOException;
-
+import com.cg.teamoptimus.WealthManagement.helper.JwtUtil;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -32,11 +25,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtil jwtUtil;
 
-	@Override
-	protected void doFilterInternal(HttpServletRequest request,
-			HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
-		String requestTokenHeader = request.getHeader("Authorization");
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        String requestTokenHeader = request.getHeader("Authorization");
         String username = null;
         String jwtToken = null;
 
@@ -69,7 +61,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
-        filterChain.doFilter(request, response);
-		
+        filterChain.doFilter(request, response);	
 	}
 }

@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.cg.teamoptimus.WealthManagement.helper.JwtUtil;
-import com.cg.teamoptimus.WealthManagement.model.LoginResponse;
-import com.cg.teamoptimus.WealthManagement.model.User;
+import com.cg.teamoptimus.WealthManagement.model.JwtRequest;
+import com.cg.teamoptimus.WealthManagement.model.JwtResponse;
 import com.cg.teamoptimus.WealthManagement.services.CustomUserDetailsService;
-
 
 @RestController
 public class JwtController {
@@ -30,10 +29,10 @@ public class JwtController {
     private JwtUtil jwtUtil;
     
     @RequestMapping(value = "/token", method = RequestMethod.POST)
-    public ResponseEntity<?> generateToken(@RequestBody User User) throws Exception {
+    public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
         try {
             // Authenticate the user
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(User.getUsername(), User.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
         } catch (UsernameNotFoundException e) {
             // Username not found
             return ResponseEntity.status(401).body("Unauthorized: Username not found");
@@ -43,10 +42,8 @@ public class JwtController {
         }
 
         // If authentication is successful, generate and return a JWT
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(User.getUsername());
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(jwtRequest.getUsername());
         String token = jwtUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new LoginResponse(token));
+        return ResponseEntity.ok(new JwtResponse(token));
     }
-    
-   
 }

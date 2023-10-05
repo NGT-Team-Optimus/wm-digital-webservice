@@ -1,15 +1,15 @@
 package com.cg.teamoptimus.WealthManagement.model;
 
-public class LoginResponse {
+public class JwtResponse {
 	
 
 
 		String token;
 		
-		public LoginResponse(){	
+		public JwtResponse(){	
 		}
 
-		public LoginResponse(String token) {
+		public JwtResponse(String token) {
 			super();
 			this.token = token;
 		}

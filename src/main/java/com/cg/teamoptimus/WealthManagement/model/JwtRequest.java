@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 
 @Document(collection="users")
-public class User {
+public class JwtRequest {
 	
 	@Id
 	private int userId;
@@ -69,11 +69,11 @@ public class User {
 	public void setGoals(List<Goal> goals) {
 		this.goals = goals;
 	}
-		public User() {
+		public JwtRequest() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-		public User(int userId, String username, String email,
+		public JwtRequest(int userId, String username, String email,
 				 String password, String userSSN, String status,
 				List<Goal> goals) {
 			super();

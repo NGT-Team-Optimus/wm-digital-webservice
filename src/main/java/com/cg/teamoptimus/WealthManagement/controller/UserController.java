@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 //import org.springframework.security.core.Authentication;
 
 import com.cg.teamoptimus.WealthManagement.helper.JwtUtil;
-import com.cg.teamoptimus.WealthManagement.model.LoginResponse;
-import com.cg.teamoptimus.WealthManagement.model.User;
+import com.cg.teamoptimus.WealthManagement.model.JwtResponse;
+import com.cg.teamoptimus.WealthManagement.model.JwtRequest;
 import com.cg.teamoptimus.WealthManagement.services.CustomUserDetailsService;
 import com.cg.teamoptimus.WealthManagement.services.IUserService;
 
@@ -46,32 +46,32 @@ public class UserController {
 	
 	
 	@PostMapping("/signup")
-	public String register(@RequestBody User user) {
+	public String register(@RequestBody JwtRequest user) {
 		userService.register(user);
 		return "Registered successfully";
 	}
 		
 	
 	@PostMapping("/update")
-	public String updateUserDetails(@RequestBody User user) {
+	public String updateUserDetails(@RequestBody JwtRequest user) {
 		userService.updateUserDetails(user);
 		return "updated successfully";
 	}
 	@GetMapping("/all")
-	public List<User> getAllUsers(){
+	public List<JwtRequest> getAllUsers(){
 		return userService.getAllUsers();
 		
 	}
 	
 	@PostMapping("/login")
-	public String loginUser(@RequestBody User user) {
+	public String loginUser(@RequestBody JwtRequest user) {
 		userService.loginUser(user);
 		return "Logged In";
 	}
 	
 	
 	 @PostMapping("/signin")
-	    public ResponseEntity<?> authenticateUser( @RequestBody User user) {
+	    public ResponseEntity<?> authenticateUser( @RequestBody JwtRequest user) {
 		 org.springframework.security.core.Authentication authentication =authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
 
 	        SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -79,7 +79,7 @@ public class UserController {
 
 	        final String jwt = jwtUtil.generateToken(userDetails);
 
-	        return ResponseEntity.ok(new LoginResponse(jwt));
+	        return ResponseEntity.ok(new JwtResponse(jwt));
 	    }
 
 }
