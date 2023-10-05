@@ -21,7 +21,7 @@ import com.cg.teamoptimus.WealthManagement.model.User;
 import com.cg.teamoptimus.WealthManagement.services.CustomUserDetailsService;
 import com.cg.teamoptimus.WealthManagement.services.IUserService;
 
-import jakarta.validation.Valid;
+//import jakarta.validation.Valid;
 
 
 
@@ -71,7 +71,7 @@ public class UserController {
 	
 	
 	 @PostMapping("/signin")
-	    public ResponseEntity<?> authenticateUser(@Valid @RequestBody User user) {
+	    public ResponseEntity<?> authenticateUser( @RequestBody User user) {
 		 org.springframework.security.core.Authentication authentication =authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
 
 	        SecurityContextHolder.getContext().setAuthentication(authentication);

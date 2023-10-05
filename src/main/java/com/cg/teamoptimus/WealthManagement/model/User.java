@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import jakarta.validation.constraints.NotEmpty;
+//import jakarta.validation.constraints.NotEmpty;
 
 
 @Document(collection="users")
@@ -14,9 +14,9 @@ public class User {
 	@Id
 	private int userId;
 	private String username;
-	@NotEmpty(message="email should not be empty")
+	//@NotEmpty(message="email should not be empty")
 	private String email;
-	@NotEmpty(message="password should not be empty")
+	//@NotEmpty(message="password should not be empty")
 	private String password;
 	private String userSSN;
 	private String status;
@@ -73,8 +73,8 @@ public class User {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-		public User(int userId, String username, @NotEmpty(message = "email should not be empty") String email,
-				@NotEmpty(message = "password should not be empty") String password, String userSSN, String status,
+		public User(int userId, String username, String email,
+				 String password, String userSSN, String status,
 				List<Goal> goals) {
 			super();
 			this.userId = userId;
