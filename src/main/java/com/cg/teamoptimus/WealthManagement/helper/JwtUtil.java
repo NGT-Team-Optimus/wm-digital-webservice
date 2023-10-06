@@ -1,5 +1,5 @@
 package com.cg.teamoptimus.WealthManagement.helper;
-// Generate Validate Expire
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -9,11 +9,18 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
+import com.mongodb.Function;
+
+
 
 @Component
 public class JwtUtil {
-    private final String SECRET_KEY = "PratikMali";
+	private final String SECRET_KEY = "PratikMali";
+
+
+
+
+
     private static final long JWT_TOKEN_VALIDITY = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
     public String getUsernameFromToken(String token) {
@@ -57,4 +64,5 @@ public class JwtUtil {
         final String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
+
 }
