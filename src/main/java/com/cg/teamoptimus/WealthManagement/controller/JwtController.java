@@ -35,7 +35,7 @@ public class JwtController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
         } catch (UsernameNotFoundException e) {
             // Username not found
-            return ResponseEntity.status(401).body("Unauthorized: Username not found");
+            return ResponseEntity.status(401).body("Unauthorized: User not found");
         } catch (BadCredentialsException e) {
             // Wrong password
             return ResponseEntity.status(401).body("Unauthorized: Wrong username or password");

@@ -15,9 +15,8 @@ public interface IUserRepository extends MongoRepository<JwtRequest,Integer> {
 	
 	Boolean existsByEmail(String email);
 	
-	Boolean existsByuserId(int userId);
-	
-	List<Goal> findGoalsByUser(int userId);
+	Boolean existsByuserId(String userId);
+
 	
 	
 	

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 //import jakarta.validation.constraints.NotEmpty;
 
@@ -12,18 +13,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class JwtRequest {
 	
 	@Id
-	private int userId;
+	@Field("_id")
+	private String userId;
 	private String username;
 	//@NotEmpty(message="email should not be empty")
 	private String email;
 	//@NotEmpty(message="password should not be empty")
 	private String password;
 	private String userSSN;
-	private String status;
+	private boolean status;
 	
 	private List<Goal> goals;
 	
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 	public String getUsername() {
@@ -32,7 +34,7 @@ public class JwtRequest {
 	public void setUsername(String userName) {
 		this.username = userName;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
@@ -56,10 +58,10 @@ public class JwtRequest {
 		this.userSSN = userSSN;
 	}
 	
-	public String getStatus() {
+	public boolean getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
 	
@@ -73,8 +75,8 @@ public class JwtRequest {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-		public JwtRequest(int userId, String username, String email,
-				 String password, String userSSN, String status,
+		public JwtRequest(String userId, String username, String email,
+				 String password, String userSSN, boolean status,
 				List<Goal> goals) {
 			super();
 			this.userId = userId;

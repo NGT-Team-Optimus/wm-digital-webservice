@@ -4,17 +4,19 @@ import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 
 @Document(collection="goals")
 public class Goal {
 	@Id
-	private int goalId;
+	@Field("_id")
+	private String goalId;
 	private String goalName;
 	private String goalStatus;
 	private Date duration;
 	private Long financialGoalValue;
-	public Goal(int goalId, String goalName, String goalStatus, Date duration,
+	public Goal(String goalId, String goalName, String goalStatus, Date duration,
 			Long financialGoalValue) {
 		super();
 		this.goalId = goalId;
@@ -23,10 +25,10 @@ public class Goal {
 		this.duration = duration;
 		this.financialGoalValue=financialGoalValue;
 	}
-	public int getGoalId() {
+	public String getGoalId() {
 		return goalId;
 	}
-	public void setGoalId(int goalId) {
+	public void setGoalId(String goalId) {
 		this.goalId = goalId;
 	}
 	public String getGoalName() {
