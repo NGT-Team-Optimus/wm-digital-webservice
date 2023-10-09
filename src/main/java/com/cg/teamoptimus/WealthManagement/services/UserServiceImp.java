@@ -30,26 +30,21 @@ public class UserServiceImp implements IUserService {
 			return "Registerd successfully";
 		}
 	}
-	
-
 
 	@Override
 	public String updateUserDetails(JwtRequest user) {
-		if(userRepo.existsByuserId(user.getUserId())) {
+		//JwtRequest existingUser = userRepo.findByEmail(user.getEmail());
+
+		if (userRepo.existsByUserId(user.getUserId())) {
 			userRepo.save(user);
+			logger.info("Updated succesfully");
 			return "Updated Successfully";
-		}
-		else {
+		} else {
 			logger.info("No User found");
 			return "No User Found";
 		}
 	}
-	@Override
-	public List<JwtRequest> getAllUsers() {
-		List<JwtRequest> users=userRepo.findAll();
-		logger.info("Success");
-		return users;
-	}
+
 	@Override
 	public String loginUser(JwtRequest user) {
 		JwtRequest result=userRepo.findByEmail(user.getEmail());

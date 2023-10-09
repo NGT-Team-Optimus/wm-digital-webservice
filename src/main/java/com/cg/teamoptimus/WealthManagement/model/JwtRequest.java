@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 //import jakarta.validation.constraints.NotEmpty;
 
@@ -13,8 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class JwtRequest {
 	
 	@Id
-	@Field("_id")
-	private String userId;
+	private int userId;
 	private String username;
 	//@NotEmpty(message="email should not be empty")
 	private String email;
@@ -25,7 +23,7 @@ public class JwtRequest {
 	
 	private List<Goal> goals;
 	
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 	public String getUsername() {
@@ -34,7 +32,7 @@ public class JwtRequest {
 	public void setUsername(String userName) {
 		this.username = userName;
 	}
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	
@@ -75,7 +73,7 @@ public class JwtRequest {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-		public JwtRequest(String userId, String username, String email,
+		public JwtRequest(int userId, String username, String email,
 				 String password, String userSSN, boolean status,
 				List<Goal> goals) {
 			super();

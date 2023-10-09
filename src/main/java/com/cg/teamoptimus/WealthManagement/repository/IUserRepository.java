@@ -12,10 +12,9 @@ import com.cg.teamoptimus.WealthManagement.model.JwtRequest;
 public interface IUserRepository extends MongoRepository<JwtRequest,Integer> {
 	
 	JwtRequest findByEmail(String email);
-	
 	Boolean existsByEmail(String email);
-	
-	Boolean existsByuserId(String userId);
+
+	Boolean existsByUserId(int userId);
 
 	
 	

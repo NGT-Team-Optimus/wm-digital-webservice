@@ -16,11 +16,6 @@ import com.mongodb.Function;
 @Component
 public class JwtUtil {
 	private final String SECRET_KEY = "PratikMali";
-
-
-
-
-
     private static final long JWT_TOKEN_VALIDITY = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
     public String getUsernameFromToken(String token) {

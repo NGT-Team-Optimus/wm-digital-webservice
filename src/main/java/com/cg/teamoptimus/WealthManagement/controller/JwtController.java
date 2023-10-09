@@ -32,7 +32,7 @@ public class JwtController {
     public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
         try {
             // Authenticate the user
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getEmail(), jwtRequest.getPassword()));
         } catch (UsernameNotFoundException e) {
             // Username not found
             return ResponseEntity.status(401).body("Unauthorized: User not found");
@@ -42,7 +42,7 @@ public class JwtController {
         }
 
         // If authentication is successful, generate and return a JWT
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(jwtRequest.getUsername());
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(jwtRequest.getEmail());
         String token = jwtUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
     }

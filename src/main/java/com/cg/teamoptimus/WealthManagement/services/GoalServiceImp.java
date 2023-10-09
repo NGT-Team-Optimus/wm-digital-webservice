@@ -2,6 +2,7 @@ package com.cg.teamoptimus.WealthManagement.services;
 
 import java.util.List;
 
+import com.cg.teamoptimus.WealthManagement.model.JwtRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +20,7 @@ public class GoalServiceImp implements IGoalService {
 		return goals;
 	}
 
-	
+
+
+
 }
