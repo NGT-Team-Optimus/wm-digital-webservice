@@ -33,8 +33,6 @@ public class UserServiceImp implements IUserService {
 
 	@Override
 	public String updateUserDetails(JwtRequest user) {
-		//JwtRequest existingUser = userRepo.findByEmail(user.getEmail());
-
 		if (userRepo.existsByUserId(user.getUserId())) {
 			userRepo.save(user);
 			logger.info("Updated succesfully");

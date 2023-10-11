@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +17,7 @@ import com.cg.teamoptimus.WealthManagement.model.JwtRequest;
 import com.cg.teamoptimus.WealthManagement.services.CustomUserDetailsService;
 import com.cg.teamoptimus.WealthManagement.services.IUserService;
 
-
-
-
+import java.util.List;
 
 
 @RestController
@@ -40,7 +39,7 @@ public class UserController {
 		return "Registered successfully";
 	}
 	
-	@PutMapping("/update")
+	@PostMapping("/update")
 	public String updateUserDetails(@RequestBody JwtRequest user) {
 		userService.updateUserDetails(user);
 		return "updated successfully";
@@ -50,6 +49,20 @@ public class UserController {
 		userService.loginUser(user);
 		return "Logged In";
 	}
+
+	/*@PostMapping("/signin")
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody JwtRequest jwtRequest) {
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(jwtRequest.getEmail(), jwtRequest.getPassword()));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		String jwt = jwtUtil.generateToken((UserDetails) authentication);
+		CustomUserDetailsService userDetails = (CustomUserDetailsService) authentication.getPrincipal();
+		return ResponseEntity.ok(new JwtResponse(jwt,
+				userDetails.
+				userDetails.getUsername(),
+				userDetails.getEmail()
+				));
+	}*/
 	
 
 }
