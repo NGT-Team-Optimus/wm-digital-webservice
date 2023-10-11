@@ -2,7 +2,6 @@ package com.cg.teamoptimus.WealthManagement.services;
 
 import java.util.ArrayList;
 
-import com.cg.teamoptimus.WealthManagement.model.JwtRequest;
 import com.cg.teamoptimus.WealthManagement.repository.IUserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +20,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		JwtRequest user=userRepo.findByEmail(email);
-		logger.info("email"+email, "userEmail"+user.getEmail());
+		com.cg.teamoptimus.WealthManagement.model.User user=userRepo.findByEmail(email);
+		//logger.info("email"+email, "userEmail"+user.getEmail());
 		if(email.equals(user.getEmail())) {
 			return new User(user.getEmail(),user.getPassword(),new ArrayList<>());
 		}else {

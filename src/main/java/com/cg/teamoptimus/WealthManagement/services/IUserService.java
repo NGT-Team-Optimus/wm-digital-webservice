@@ -1,14 +1,12 @@
 package com.cg.teamoptimus.WealthManagement.services;
-
-import java.util.List;
-
 import com.cg.teamoptimus.WealthManagement.model.JwtRequest;
+import com.cg.teamoptimus.WealthManagement.model.User;
 
 public interface IUserService{
 	
-	public String register(JwtRequest user);
-	public String updateUserDetails(JwtRequest user);
-	public String loginUser(JwtRequest user);
+	public String register(User user);
+	public String updateUserDetails(User user);
+	public String loginUser(JwtRequest jwtRequest);
 	
 
 }

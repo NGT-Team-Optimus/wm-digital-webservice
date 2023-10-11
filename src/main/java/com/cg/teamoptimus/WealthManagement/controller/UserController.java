@@ -1,6 +1,7 @@
 package com.cg.teamoptimus.WealthManagement.controller;
 
 
+import com.cg.teamoptimus.WealthManagement.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,19 +35,19 @@ public class UserController {
 	    private AuthenticationManager authenticationManager;
 	
 	@PostMapping("/signup")
-	public String register(@RequestBody JwtRequest user) {
+	public String register(@RequestBody User user) {
 		userService.register(user);
 		return "Registered successfully";
 	}
 	
 	@PostMapping("/update")
-	public String updateUserDetails(@RequestBody JwtRequest user) {
+	public String updateUserDetails(@RequestBody User user) {
 		userService.updateUserDetails(user);
 		return "updated successfully";
 	}
 	@PostMapping("/login")
-	public String loginUser(@RequestBody JwtRequest user) {
-		userService.loginUser(user);
+	public String loginUser(@RequestBody JwtRequest jwtRequest) {
+		userService.loginUser(jwtRequest);
 		return "Logged In";
 	}
 
