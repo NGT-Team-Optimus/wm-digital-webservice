@@ -18,6 +18,7 @@ import com.cg.teamoptimus.WealthManagement.model.JwtRequest;
 import com.cg.teamoptimus.WealthManagement.services.CustomUserDetailsService;
 import com.cg.teamoptimus.WealthManagement.services.IUserService;
 
+import java.util.UUID;
 
 
 @RestController
@@ -34,12 +35,12 @@ public class UserController {
 	    private AuthenticationManager authenticationManager;
 	
 	@PostMapping("/signup")
-	public User register(@RequestBody User user) {
-		User result=userService.register(user);
+	public UUID register(@RequestBody User user) {
+		UUID result=userService.register(user);
 		return result;
 	}
 	
-	@PostMapping("/update")
+	@PutMapping("/update")
 	public String updateUserDetails(@RequestBody User user) {
 		userService.updateUserDetails(user);
 		return "updated successfully";

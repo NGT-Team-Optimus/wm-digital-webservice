@@ -2,6 +2,7 @@ package com.cg.teamoptimus.WealthManagement.services;
 
 
 import java.util.List;
+import java.util.UUID;
 
 import com.cg.teamoptimus.WealthManagement.model.User;
 import org.slf4j.Logger;
@@ -20,7 +21,7 @@ public class UserServiceImp implements IUserService {
 	Logger logger = LoggerFactory.getLogger(IUserService.class);
 
 	@Override
-	public User register(User user) {
+	public UUID register(User user) {
 		if(userRepo.existsByEmail(user.getEmail())) {
 			logger.info("User Already exists");
 			return null;
@@ -28,7 +29,7 @@ public class UserServiceImp implements IUserService {
 		else {
 			User result=userRepo.save(user);
 			logger.info("Registered successsfully");
-			return result;
+			return result.getUserId();
 		}
 	}
 
