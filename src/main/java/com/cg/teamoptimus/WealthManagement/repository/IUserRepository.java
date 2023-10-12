@@ -1,23 +1,17 @@
 package com.cg.teamoptimus.WealthManagement.repository;
 
-import java.util.List;
-
+import com.cg.teamoptimus.WealthManagement.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.cg.teamoptimus.WealthManagement.model.Goal;
-import com.cg.teamoptimus.WealthManagement.model.JwtRequest;
-
 @Repository
-public interface IUserRepository extends MongoRepository<JwtRequest,Integer> {
+public interface IUserRepository extends MongoRepository<User,Integer> {
 	
-	JwtRequest findByEmail(String email);
-	
+	User findByEmail(String email);
 	Boolean existsByEmail(String email);
-	
-	Boolean existsByuserId(int userId);
-	
-	List<Goal> findGoalsByUser(int userId);
+
+	Boolean existsByUserId(int userId);
+
 	
 	
 	

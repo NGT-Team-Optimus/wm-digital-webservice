@@ -6,6 +6,8 @@ import com.cg.teamoptimus.WealthManagement.model.Goal;
 
 @Repository
 public interface IGoalRepository extends MongoRepository<Goal,Integer> {
+
+    //List<Goal> findGoalByUser(String userId);
 	
 
 }
