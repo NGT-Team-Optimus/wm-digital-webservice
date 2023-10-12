@@ -11,15 +11,13 @@ public class Goal {
 	@Id
 	private int goalId;
 	private String goalName;
-	private String goalStatus;
 	private Date duration;
 	private Long financialGoalValue;
-	public Goal(int goalId, String goalName, String goalStatus, Date duration,
+	public Goal(int goalId, String goalName, Date duration,
 			Long financialGoalValue) {
 		super();
 		this.goalId = goalId;
 		this.goalName = goalName;
-		this.goalStatus = goalStatus;
 		this.duration = duration;
 		this.financialGoalValue=financialGoalValue;
 	}
@@ -34,12 +32,6 @@ public class Goal {
 	}
 	public void setGoalName(String goalName) {
 		this.goalName = goalName;
-	}
-	public String getGoalStatus() {
-		return goalStatus;
-	}
-	public void setGoalStatus(String goalStatus) {
-		this.goalStatus = goalStatus;
 	}
 	public Date getDuration() {
 		return duration;

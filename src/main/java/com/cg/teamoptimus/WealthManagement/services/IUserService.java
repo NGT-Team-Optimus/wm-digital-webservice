@@ -4,9 +4,9 @@ import com.cg.teamoptimus.WealthManagement.model.User;
 
 public interface IUserService{
 	
-	public String register(User user);
+	public User register(User user);
 	public String updateUserDetails(User user);
-	public String loginUser(JwtRequest jwtRequest);
+	//public String loginUser(JwtRequest jwtRequest);
 	
 
 }

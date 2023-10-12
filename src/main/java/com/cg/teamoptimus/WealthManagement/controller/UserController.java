@@ -18,7 +18,6 @@ import com.cg.teamoptimus.WealthManagement.model.JwtRequest;
 import com.cg.teamoptimus.WealthManagement.services.CustomUserDetailsService;
 import com.cg.teamoptimus.WealthManagement.services.IUserService;
 
-import java.util.List;
 
 
 @RestController
@@ -35,9 +34,9 @@ public class UserController {
 	    private AuthenticationManager authenticationManager;
 	
 	@PostMapping("/signup")
-	public String register(@RequestBody User user) {
-		userService.register(user);
-		return "Registered successfully";
+	public User register(@RequestBody User user) {
+		User result=userService.register(user);
+		return result;
 	}
 	
 	@PostMapping("/update")
@@ -45,25 +44,14 @@ public class UserController {
 		userService.updateUserDetails(user);
 		return "updated successfully";
 	}
-	@PostMapping("/login")
+/*	@PostMapping("/login")
 	public String loginUser(@RequestBody JwtRequest jwtRequest) {
 		userService.loginUser(jwtRequest);
 		return "Logged In";
 	}
 
-	/*@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody JwtRequest jwtRequest) {
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(jwtRequest.getEmail(), jwtRequest.getPassword()));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String jwt = jwtUtil.generateToken((UserDetails) authentication);
-		CustomUserDetailsService userDetails = (CustomUserDetailsService) authentication.getPrincipal();
-		return ResponseEntity.ok(new JwtResponse(jwt,
-				userDetails.
-				userDetails.getUsername(),
-				userDetails.getEmail()
-				));
-	}*/
-	
+ */
+
+
 
 }
