@@ -13,7 +13,6 @@ public class JwtResponse {
 			super();
 			this.token = token;
 		}
-
 		public String getToken() {
 			return token;
 		}
@@ -21,9 +20,7 @@ public class JwtResponse {
 		public void setToken(String token) {
 			this.token = token;
 		}
-		
-		
-		
-	}
+
+}
 
 

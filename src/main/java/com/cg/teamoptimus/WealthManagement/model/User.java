@@ -1,6 +1,7 @@
 package com.cg.teamoptimus.WealthManagement.model;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
 
     @Id
-    private int userId;
+    private UUID userId=UUID.randomUUID();
     private String username;
    //@NotEmpty(message="email should not be empty")
     private String email;
@@ -19,9 +20,8 @@ public class User {
     private String userSSN;
     private boolean status;
 
-    private List<Goal> goals;
 
-    public int getUserId() {
+    public UUID getUserId() {
         return userId;
     }
     public String getUsername() {
@@ -30,7 +30,7 @@ public class User {
     public void setUsername(String userName) {
         this.username = userName;
     }
-    public void setUserId(int userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 
@@ -61,19 +61,12 @@ public class User {
         this.status = status;
     }
 
-    public List<Goal> getGoals() {
-        return goals;
-    }
-    public void setGoals(List<Goal> goals) {
-        this.goals = goals;
-    }
     public User() {
         super();
         // TODO Auto-generated constructor stub
     }
-    public User(int userId, String username, String email,
-                      String password, String userSSN, boolean status,
-                      List<Goal> goals) {
+    public User(UUID userId, String username, String email,
+                      String password, String userSSN, boolean status) {
         super();
         this.userId = userId;
         this.username = username;
@@ -81,12 +74,11 @@ public class User {
         this.password = password;
         this.userSSN = userSSN;
         this.status = status;
-        this.goals = goals;
     }
     @Override
     public String toString() {
         return "User [userId=" + userId + ", userName=" + username + ", email=" + email + ", password=" + password
-                + ", userSSN=" + userSSN + ", status=" + status + ", goals=" + goals + "]";
+                + ", userSSN=" + userSSN + ", status=" + status +"]";
     }
 
 

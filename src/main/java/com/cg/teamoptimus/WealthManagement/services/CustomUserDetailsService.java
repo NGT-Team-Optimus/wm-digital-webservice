@@ -21,10 +21,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		com.cg.teamoptimus.WealthManagement.model.User user=userRepo.findByEmail(email);
-		//logger.info("email"+email, "userEmail"+user.getEmail());
-		if(email.equals(user.getEmail())) {
+		if(user!=null && email.equals(user.getEmail()) ) {
 			return new User(user.getEmail(),user.getPassword(),new ArrayList<>());
-		}else {
+		}
+		else  {
 			throw new UsernameNotFoundException("User not Found!!");
 		}
 	}

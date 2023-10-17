@@ -28,7 +28,7 @@ public class JwtController {
     @Autowired
     private JwtUtil jwtUtil;
     
-    @RequestMapping(value = "/token", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/signin", method = RequestMethod.POST)
     public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
         try {
             // Authenticate the user
