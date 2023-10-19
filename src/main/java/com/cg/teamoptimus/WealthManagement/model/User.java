@@ -61,6 +61,9 @@ public class User {
         this.status = status;
     }
 
+    public boolean isStatus() {
+        return status;
+    }
     public User() {
         super();
         // TODO Auto-generated constructor stub

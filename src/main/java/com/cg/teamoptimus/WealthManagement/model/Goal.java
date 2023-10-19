@@ -1,8 +1,11 @@
 package com.cg.teamoptimus.WealthManagement.model;
 
 import java.util.Date;
+import java.util.UUID;
+
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -13,13 +16,19 @@ public class Goal {
 	private String goalName;
 	private Date duration;
 	private Long financialGoalValue;
+	@DBRef
+	private User user;
+	//private UUID userId;
+
 	public Goal(int goalId, String goalName, Date duration,
-			Long financialGoalValue) {
+			Long financialGoalValue,User user) {
 		super();
 		this.goalId = goalId;
 		this.goalName = goalName;
 		this.duration = duration;
 		this.financialGoalValue=financialGoalValue;
+		this.user=user;
+
 	}
 	public int getGoalId() {
 		return goalId;
@@ -45,5 +54,13 @@ public class Goal {
 	}
 	public void setFinancialGoalValue(Long financialGoalValue) {
 		this.financialGoalValue = financialGoalValue;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }
