@@ -8,7 +8,5 @@ public interface IUserService{
 	
 	public UUID register(User user);
 	public String updateUserDetails(User user);
-	//public String loginUser(JwtRequest jwtRequest);
-	
-
+	User getUserByUserId(UUID userId);
 }

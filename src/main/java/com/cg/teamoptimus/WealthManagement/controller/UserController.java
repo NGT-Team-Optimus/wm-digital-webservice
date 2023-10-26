@@ -45,14 +45,6 @@ public class UserController {
 		userService.updateUserDetails(user);
 		return "updated successfully";
 	}
-/*	@PostMapping("/login")
-	public String loginUser(@RequestBody JwtRequest jwtRequest) {
-		userService.loginUser(jwtRequest);
-		return "Logged In";
-	}
-
- */
-
 
 
 }

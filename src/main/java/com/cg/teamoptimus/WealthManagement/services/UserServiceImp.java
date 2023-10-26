@@ -4,6 +4,7 @@ package com.cg.teamoptimus.WealthManagement.services;
 import java.util.List;
 import java.util.UUID;
 
+import com.cg.teamoptimus.WealthManagement.model.Goal;
 import com.cg.teamoptimus.WealthManagement.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,26 +46,10 @@ public class UserServiceImp implements IUserService {
 		}
 	}
 
-	/*@Override
-	public String loginUser(JwtRequest jwtRequest) {
-		User result=userRepo.findByEmail(jwtRequest.getEmail());
-		if(result!=null) {
-			if((result.getPassword()).equals(jwtRequest.getPassword())) {
-				logger.info("Successfully logged in");
-				return "success";
-			}
-			else {
-				logger.info("invalid password");
-				return "invalid password";
-			}
-		}
-		else {
-			logger.info("No User Found");
-			return "No User Found";
-		}
-		
-	}*/
-	
+	@Override
+	public User getUserByUserId(UUID userId) {
+		return userRepo.findByUserId(userId);
+	}
 	
 
 }

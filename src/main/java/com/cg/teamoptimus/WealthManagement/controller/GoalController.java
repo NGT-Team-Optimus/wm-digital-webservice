@@ -1,11 +1,13 @@
 package com.cg.teamoptimus.WealthManagement.controller;
 
+import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.cg.teamoptimus.WealthManagement.model.Goal;
 import com.cg.teamoptimus.WealthManagement.services.IGoalService;
@@ -22,5 +24,17 @@ public class GoalController {
 		
 	}
 
+
+
+	@PostMapping("/add/{userId}")
+	public ResponseEntity<List<Goal>> addGoalsForUser(@PathVariable("userId") UUID userId, @RequestBody List<Goal> goals) {
+		List<Goal> createdGoals = goalService.addGoalsForUser(userId, goals);
+		if (createdGoals.isEmpty()) {
+			// Handle the case where the user doesn't exist
+			return ResponseEntity.notFound().build();
+		}
+		// Return the created goals in the response
+		return ResponseEntity.status(HttpStatus.CREATED).body(createdGoals);
+	}
 
 }
