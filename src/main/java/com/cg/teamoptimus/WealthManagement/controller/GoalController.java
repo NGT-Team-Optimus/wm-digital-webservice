@@ -21,20 +21,7 @@ public class GoalController {
 	@GetMapping("/get")
 	public List<Goal> getAllGoals(){
 		return goalService.getAllGoals();
-		
 	}
 
-
-
-	@PostMapping("/add/{userId}")
-	public ResponseEntity<List<Goal>> addGoalsForUser(@PathVariable("userId") UUID userId, @RequestBody List<Goal> goals) {
-		List<Goal> createdGoals = goalService.addGoalsForUser(userId, goals);
-		if (createdGoals.isEmpty()) {
-			// Handle the case where the user doesn't exist
-			return ResponseEntity.notFound().build();
-		}
-		// Return the created goals in the response
-		return ResponseEntity.status(HttpStatus.CREATED).body(createdGoals);
-	}
 
 }

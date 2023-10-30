@@ -24,6 +24,8 @@ public class GoalServiceImp implements IGoalService {
 	IUserRepository userRepo;
 	@Autowired
 	IUserService userService;
+	@Autowired
+	IGoalService goalService;
 
 	Logger logger = LoggerFactory.getLogger(IUserService.class);
 
@@ -35,22 +37,9 @@ public class GoalServiceImp implements IGoalService {
 	}
 
 	@Override
-	public List<Goal> addGoalsForUser(UUID userId, List<Goal> goals) {
-		User user = userService.getUserByUserId(userId);
-		if (user == null) {
-			// Handle the case where the user doesn't exist
-			logger.info("user not found");
-			return Collections.emptyList();
-		}
-		for (Goal goal : goals) {
-			goal.setUser(user);
-		}
-		return goalRepo.saveAll(goals);
+	public Goal getGoalByGoalId(int goalId) {
+		return goalRepo.findByGoalId(goalId);
 	}
-
-
-
-
 
 
 }
