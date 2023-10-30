@@ -8,6 +8,6 @@ import com.cg.teamoptimus.WealthManagement.model.Goal;
 public interface IGoalService {
 	
 	public List<Goal> getAllGoals();
-	public List<Goal> addGoalsForUser(UUID userId,List<Goal> goals);
+	public Goal getGoalByGoalId(int goalId);
 
 }

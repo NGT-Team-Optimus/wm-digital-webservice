@@ -1,16 +1,13 @@
 package com.cg.teamoptimus.WealthManagement.repository;
 
-import com.cg.teamoptimus.WealthManagement.model.User;
+import com.cg.teamoptimus.WealthManagement.model.UserGoal;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
-import com.cg.teamoptimus.WealthManagement.model.Goal;
 
-import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface IGoalRepository extends MongoRepository<Goal,Integer> {
+public interface IUserGoalRepository extends MongoRepository<UserGoal,UUID> {
 
-    Goal findByGoalId(int goalId);
 }

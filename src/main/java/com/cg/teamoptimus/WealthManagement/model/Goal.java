@@ -16,19 +16,14 @@ public class Goal {
 	private String goalName;
 	private Date duration;
 	private Long financialGoalValue;
-	@DBRef
-	private User user;
-	//private UUID userId;
 
 	public Goal(int goalId, String goalName, Date duration,
-			Long financialGoalValue,User user) {
+			Long financialGoalValue) {
 		super();
 		this.goalId = goalId;
 		this.goalName = goalName;
 		this.duration = duration;
 		this.financialGoalValue=financialGoalValue;
-		this.user=user;
-
 	}
 	public int getGoalId() {
 		return goalId;
@@ -54,13 +49,5 @@ public class Goal {
 	}
 	public void setFinancialGoalValue(Long financialGoalValue) {
 		this.financialGoalValue = financialGoalValue;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 }
