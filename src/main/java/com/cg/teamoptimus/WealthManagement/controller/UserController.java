@@ -18,6 +18,7 @@ import com.cg.teamoptimus.WealthManagement.model.JwtRequest;
 import com.cg.teamoptimus.WealthManagement.services.CustomUserDetailsService;
 import com.cg.teamoptimus.WealthManagement.services.IUserService;
 
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -40,12 +41,21 @@ public class UserController {
 		return result;
 	}
 
-	@GetMapping("/api/forgot-password/{email}")
+	@GetMapping("/api/forget_password/{email}")
 	public ResponseEntity<String> forgotPassword(@PathVariable("email") String email){
 		String token=userService.forgotPassword(email);
 		return ResponseEntity.ok(token);
 
 	}
+	@PostMapping("/api/confirm_password")
+	public ResponseEntity<String> confirmPassword(@RequestBody Map<String, String> request) {
+		String email = request.get("email");
+		String code = request.get("code");
+		String newPassword = request.get("newPassword");
+		String result = userService.confirmPassword(email, code, newPassword);
+		return ResponseEntity.ok(result);
+	}
+
 
 
 }

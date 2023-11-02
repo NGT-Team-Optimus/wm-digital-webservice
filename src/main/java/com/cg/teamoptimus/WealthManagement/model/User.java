@@ -1,6 +1,5 @@
 package com.cg.teamoptimus.WealthManagement.model;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
@@ -69,7 +68,7 @@ public class User {
         // TODO Auto-generated constructor stub
     }
     public User(UUID userId, String username, String email,
-                      String password, String userSSN, boolean status) {
+                String password, String userSSN, boolean status) {
         super();
         this.userId = userId;
         this.username = username;
