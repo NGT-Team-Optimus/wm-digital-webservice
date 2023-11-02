@@ -39,11 +39,12 @@ public class UserController {
 		UUID result=userService.register(user);
 		return result;
 	}
-	
-	@PutMapping("/update")
-	public String updateUserDetails(@RequestBody User user) {
-		userService.updateUserDetails(user);
-		return "updated successfully";
+
+	@GetMapping("/api/forgot-password/{email}")
+	public ResponseEntity<String> forgotPassword(@PathVariable("email") String email){
+		String token=userService.forgotPassword(email);
+		return ResponseEntity.ok(token);
+
 	}
 
 

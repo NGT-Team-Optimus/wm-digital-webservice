@@ -2,7 +2,9 @@ package com.cg.teamoptimus.WealthManagement.services;
 
 
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
+import java.util.random.RandomGenerator;
 
 import com.cg.teamoptimus.WealthManagement.model.Goal;
 import com.cg.teamoptimus.WealthManagement.model.User;
@@ -21,6 +23,8 @@ public class UserServiceImp implements IUserService {
 	private IUserRepository userRepo;
 	Logger logger = LoggerFactory.getLogger(IUserService.class);
 
+	Random random = new Random();
+
 	@Override
 	public UUID register(User user) {
 		if(userRepo.existsByEmail(user.getEmail())) {
@@ -35,20 +39,16 @@ public class UserServiceImp implements IUserService {
 	}
 
 	@Override
-	public String updateUserDetails(User user) {
-		if (userRepo.existsByEmail(user.getEmail())) {
-			userRepo.save(user);
-			logger.info("Updated succesfully");
-			return "Updated Successfully";
-		} else {
-			logger.info("No User found");
-			return "No User Found";
-		}
-	}
-
-	@Override
 	public User getUserByUserId(UUID userId) {
 		return userRepo.findByUserId(userId);
+	}
+	@Override
+	public String forgotPassword(String email){
+		if(userRepo.existsByEmail(email)){
+			String token = String.format("%04d", random.nextInt(10000));
+			return token;
+		}
+		return "User Not Forund";
 	}
 	
 

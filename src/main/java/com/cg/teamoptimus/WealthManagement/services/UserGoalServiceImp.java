@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class UserGoalServiceImp implements IUserGoalService{
+public class UserGoalServiceImp implements IUserGoalService {
 
-    Logger logger= LoggerFactory.getLogger(IUserGoalService.class);
+    Logger logger = LoggerFactory.getLogger(IUserGoalService.class);
     @Autowired
     IUserGoalRepository userGoalRepo;
     @Autowired
@@ -27,7 +27,7 @@ public class UserGoalServiceImp implements IUserGoalService{
         User user = userService.getUserByUserId(userGoal.getUser().getUserId());
         userGoal.setUser(user);
         for (Goal goal : userGoal.getGoals()) {
-            Goal goal1=goalService.getGoalByGoalId(goal.getGoalId());
+            Goal goal1 = goalService.getGoalByGoalId(goal.getGoalId());
             goal.setGoalName(goal1.getGoalName());
         }
         return userGoalRepo.save(userGoal);
