@@ -55,6 +55,7 @@ public class UserServiceImp implements IUserService {
 			if (code.equals(token)) {
 				user.setPassword(newPassword);
 				userRepo.save(user);
+				tokenStorage.clear();
 				return "Password has changed successfully";
 			}
 			return "Invalid Code";
