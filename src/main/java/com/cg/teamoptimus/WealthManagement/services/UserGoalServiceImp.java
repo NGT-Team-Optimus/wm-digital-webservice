@@ -26,13 +26,17 @@ public class UserGoalServiceImp implements IUserGoalService {
     IUserService userService;
     @Override
     public UserGoal addGoalsByUser(@NotNull UserGoal userGoal) {
-        User user = userService.getUserByUserId(userGoal.getUser().getUserId());
-        userGoal.setUser(user);
-        for (Goal goal : userGoal.getGoals()) {
-            Goal goal1 = goalService.getGoalByGoalId(goal.getGoalId());
-            goal.setGoalName(goal1.getGoalName());
+        if (!userGoalRepo.existsByUserUserId(userGoal.getUser().getUserId())) {
+            User user = userService.getUserByUserId(userGoal.getUser().getUserId());
+            userGoal.setUser(user);
+            for (Goal goal : userGoal.getGoals()) {
+                Goal goal1 = goalService.getGoalByGoalId(goal.getGoalId());
+                goal.setGoalName(goal1.getGoalName());
+            }
+            return userGoalRepo.save(userGoal);
         }
-        return userGoalRepo.save(userGoal);
+        logger.info("User already exists");
+        return null;
     }
 
 
