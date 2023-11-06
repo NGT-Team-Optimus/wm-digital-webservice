@@ -35,7 +35,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .cors()
             .disable()
             .authorizeRequests()
-            .antMatchers("/token").permitAll()
+            .antMatchers("/user/signin",
+            		"/user/signup",
+            		"/goals/get","/addGoals",
+            		"/updateGoalDetails/{userGoalId}/{goalId}",
+            		"/getGoalByUserIdAndGoalId/{userId}/{goalId}",
+            		"/getUserGoalByUserId/{userId}",
+            		"/getGoalByUserGoalIdAndGoalId/{userGoalId}/{goalId}",
+            		"/getGoalDetails/{userId}/{goalId}",
+            		"/updateOneGoalDetails/{userId}/{goalId}").permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -59,4 +67,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
 }
+

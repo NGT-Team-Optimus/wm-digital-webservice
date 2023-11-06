@@ -1,25 +1,26 @@
 package com.cg.teamoptimus.WealthManagement.model;
 
 public class JwtResponse {
-
-	String token;
 	
-	public JwtResponse(){	
-	}
 
-	public JwtResponse(String token) {
-		super();
-		this.token = token;
-	}
 
-	public String getToken() {
-		return token;
-	}
+		String token;
+		
+		public JwtResponse(){	
+		}
 
-	public void setToken(String token) {
-		this.token = token;
-	}
-	
-	
-	
+		public JwtResponse(String token) {
+			super();
+			this.token = token;
+		}
+		public String getToken() {
+			return token;
+		}
+
+		public void setToken(String token) {
+			this.token = token;
+		}
+
 }
+
+

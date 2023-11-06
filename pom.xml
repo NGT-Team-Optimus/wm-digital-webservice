@@ -78,7 +78,7 @@
 		    <version>0.9.1</version> <!-- Use the appropriate version -->
 		</dependency>
 
-        
+
     </dependencies>
     <build>
         <plugins>
@@ -88,4 +88,6 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
+

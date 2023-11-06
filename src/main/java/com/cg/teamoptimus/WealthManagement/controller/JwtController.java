@@ -28,22 +28,24 @@ public class JwtController {
     @Autowired
     private JwtUtil jwtUtil;
     
-    @RequestMapping(value = "/token", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/signin", method = RequestMethod.POST)
     public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
         try {
             // Authenticate the user
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getEmail(), jwtRequest.getPassword()));
         } catch (UsernameNotFoundException e) {
             // Username not found
-            return ResponseEntity.status(401).body("Unauthorized: Username not found");
+            return ResponseEntity.status(401).body("Unauthorized: User not found");
         } catch (BadCredentialsException e) {
             // Wrong password
             return ResponseEntity.status(401).body("Unauthorized: Wrong username or password");
         }
 
         // If authentication is successful, generate and return a JWT
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(jwtRequest.getUsername());
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(jwtRequest.getEmail());
         String token = jwtUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
     }
+
 }
+
