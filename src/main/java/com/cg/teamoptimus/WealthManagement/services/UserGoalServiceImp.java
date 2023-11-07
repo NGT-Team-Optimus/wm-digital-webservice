@@ -10,12 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.UUID;
 
-@Service
-public class UserGoalServiceImp implements IUserGoalService{
 
-    Logger logger= LoggerFactory.getLogger(IUserGoalService.class);
+@Service
+public class UserGoalServiceImp implements IUserGoalService {
+
+    Logger logger = LoggerFactory.getLogger(IUserGoalService.class);
     @Autowired
     IUserGoalRepository userGoalRepo;
     @Autowired
@@ -24,13 +26,17 @@ public class UserGoalServiceImp implements IUserGoalService{
     IUserService userService;
     @Override
     public UserGoal addGoalsByUser(@NotNull UserGoal userGoal) {
-        User user = userService.getUserByUserId(userGoal.getUser().getUserId());
-        userGoal.setUser(user);
-        for (Goal goal : userGoal.getGoals()) {
-            Goal goal1=goalService.getGoalByGoalId(goal.getGoalId());
-            goal.setGoalName(goal1.getGoalName());
+        if (!userGoalRepo.existsByUserUserId(userGoal.getUser().getUserId())) {
+            User user = userService.getUserByUserId(userGoal.getUser().getUserId());
+            userGoal.setUser(user);
+            for (Goal goal : userGoal.getGoals()) {
+                Goal goal1 = goalService.getGoalByGoalId(goal.getGoalId());
+                goal.setGoalName(goal1.getGoalName());
+            }
+            return userGoalRepo.save(userGoal);
         }
-        return userGoalRepo.save(userGoal);
+        logger.info("User already exists");
+        return null;
     }
 
 

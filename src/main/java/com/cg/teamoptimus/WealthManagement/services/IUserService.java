@@ -7,6 +7,8 @@ import java.util.UUID;
 public interface IUserService{
 	
 	public UUID register(User user);
-	public String updateUserDetails(User user);
 	User getUserByUserId(UUID userId);
+	String forgotPassword(String email);
+
+	String confirmPassword(String email,String code,String newPassword);
 }
