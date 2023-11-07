@@ -9,9 +9,12 @@ import java.util.UUID;
 
 @Repository
 public interface IUserGoalRepository extends MongoRepository<UserGoal,UUID> {
+
 	
 	Goal findGoalByUserUserIdAndGoalsGoalId(UUID userId, int goalId);
 	
 	UserGoal findByUserUserId(UUID userID);
-	
+
+    boolean existsByUserUserId(UUID userId);
+
 }
