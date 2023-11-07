@@ -43,7 +43,6 @@ public class UserGoalController {
         System.out.println(result);
 //        if ("UserGoal not found".equals(result)) {
         if (result==null) {
-        	System.out.println("Done22");
             return ResponseEntity.notFound().build();
         } 
 //        else if ("Goal not found for the specified goalId".equals(result)) {

@@ -67,7 +67,6 @@ public class UserGoalServiceImp implements IUserGoalService{
         for (Goal goal : userGoal.getGoals()) {
             if (goal.getGoalId() == goalId) {
                 goalToUpdate = goal;
-                System.out.println("----------------");
                 
                 
                 if (goalToUpdate != null) {
@@ -78,7 +77,6 @@ public class UserGoalServiceImp implements IUserGoalService{
                 }
                 
             	System.out.println(goalToUpdate);
-            	System.out.println("----------------");
                 break;
             }
         }
@@ -93,7 +91,6 @@ public class UserGoalServiceImp implements IUserGoalService{
         goalToUpdate.setFinancialGoalValue(financialGoalValue);
         
         // Save the updated UserGoal
-//        userGoalRepo.save(userGoal);
         
         System.out.println(userGoal);
         
@@ -125,13 +122,13 @@ public class UserGoalServiceImp implements IUserGoalService{
         
         for (Goal goal : userGoal.getGoals()) {
             if (goal.getGoalId() == goalId) {
-            	System.out.println("----------------");
-            	System.out.println(goal);
-            	System.out.println("----------------");
+//            	System.out.println("----------------");
+//            	System.out.println(goal);
+//            	System.out.println("----------------");
                 goalToUpdate = goal;
-                System.out.println("----------------");
-            	System.out.println(goalToUpdate);
-            	System.out.println("----------------");
+//                System.out.println("----------------");
+//            	System.out.println(goalToUpdate);
+//            	System.out.println("----------------");
                 break;
             }
         }
@@ -140,15 +137,15 @@ public class UserGoalServiceImp implements IUserGoalService{
 //            return "Goal not found for the specified goalId"; // Handle this case as needed
         	return null;
         }
-        System.out.println("----------------");
-    	System.out.println(goalToUpdate);
-    	System.out.println("----------------");
-        
-                
-        System.out.println(goalToUpdate.getGoalId());
-        System.out.println(goalToUpdate.getGoalName());
-        System.out.println(goalToUpdate.getDuration());
-        System.out.println(goalToUpdate.getFinancialGoalValue());
+//        System.out.println("----------------");
+//    	System.out.println(goalToUpdate);
+//    	System.out.println("----------------");
+//        
+//                
+//        System.out.println(goalToUpdate.getGoalId());
+//        System.out.println(goalToUpdate.getGoalName());
+//        System.out.println(goalToUpdate.getDuration());
+//        System.out.println(goalToUpdate.getFinancialGoalValue());
                 
         return goalToUpdate;
 	}

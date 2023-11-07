@@ -11,6 +11,7 @@ public class UserGoal {
     @Id
     private String id;
     private User user;
+    
     private List<Goal> goals;
 
     public String getId() {
