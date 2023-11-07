@@ -20,7 +20,7 @@ public class Goal {
 	public Goal(int goalId, String goalName, Date duration,
 			Long financialGoalValue) {
 		super();
-		this.goalId = goalId;
+		this.goalId = goalId; 
 		this.goalName = goalName;
 		this.duration = duration;
 		this.financialGoalValue=financialGoalValue;
@@ -50,4 +50,11 @@ public class Goal {
 	public void setFinancialGoalValue(Long financialGoalValue) {
 		this.financialGoalValue = financialGoalValue;
 	}
+	@Override
+	public String toString() {
+		return "Goal [goalId=" + goalId + ", goalName=" + goalName + ", duration=" + duration + ", financialGoalValue="
+				+ financialGoalValue + "]";
+	}
+	
+	
 }

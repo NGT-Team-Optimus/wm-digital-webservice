@@ -1,29 +1,24 @@
 package com.cg.teamoptimus.WealthManagement.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
-import java.util.UUID;
 
 @Document(collection = "user-goals")
 public class UserGoal {
 
     @Id
-    private UUID id;
-
-    @DBRef
+    private String id;
     private User user;
-
-    @DBRef
+    
     private List<Goal> goals;
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -43,9 +38,13 @@ public class UserGoal {
         this.goals = goals;
     }
 
-    public UserGoal(UUID id, User user, List<Goal> goals) {
-        this.id = UUID.randomUUID();
+    public UserGoal(User user, List<Goal> goals) {
         this.user = user;
         this.goals = goals;
+    }
+
+    @Override
+    public String toString() {
+        return "UserGoal [id=" + id + ", user=" + user + ", goals=" + goals + "]";
     }
 }
