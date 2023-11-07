@@ -11,4 +11,6 @@ public interface IUserService{
 	String forgotPassword(String email);
 
 	String confirmPassword(String email,String code,String newPassword);
+	
+	User getUserByEmail(String email);
 }

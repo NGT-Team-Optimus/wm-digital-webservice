@@ -63,5 +63,9 @@ public class UserServiceImp implements IUserService {
 		}
 		return "User Not Found";
 	}
+	
+	public User getUserByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
 
 }
