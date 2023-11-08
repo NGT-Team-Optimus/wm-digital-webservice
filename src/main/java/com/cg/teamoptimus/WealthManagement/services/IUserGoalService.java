@@ -21,4 +21,6 @@ public interface IUserGoalService {
     
     public Goal updateOneGoalDetails(UUID userId, int goalId, Date duration, Long financialGoalValue);
 
+    public int getGoalCountByUserId(UUID userId);
+
 }

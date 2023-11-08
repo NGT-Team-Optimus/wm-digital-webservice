@@ -16,5 +16,4 @@ public interface IUserGoalRepository extends MongoRepository<UserGoal,UUID> {
 	UserGoal findByUserUserId(UUID userID);
 
     boolean existsByUserUserId(UUID userId);
-
 }
