@@ -1,6 +1,7 @@
 package com.cg.teamoptimus.WealthManagement.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -16,15 +17,18 @@ public class Goal {
 	private String goalName;
 	private Date duration;
 	private Long financialGoalValue;
+	private List<Long> transactionAmount;//Transaction
 
-	public Goal(int goalId, String goalName, Date duration,
-			Long financialGoalValue) {
+	
+	public Goal(int goalId, String goalName, Date duration, Long financialGoalValue, List<Long> transactionAmount) {
 		super();
-		this.goalId = goalId; 
+		this.goalId = goalId;
 		this.goalName = goalName;
 		this.duration = duration;
-		this.financialGoalValue=financialGoalValue;
+		this.financialGoalValue = financialGoalValue;
+		this.transactionAmount = transactionAmount;
 	}
+	
 	public int getGoalId() {
 		return goalId;
 	}
@@ -50,11 +54,21 @@ public class Goal {
 	public void setFinancialGoalValue(Long financialGoalValue) {
 		this.financialGoalValue = financialGoalValue;
 	}
+	
+	public List<Long> getTransactionAmount() {
+		return transactionAmount;
+	}
+
+	public void setTransactionAmount(List<Long> transactionAmount) {
+		this.transactionAmount = transactionAmount;
+	}
+
 	@Override
 	public String toString() {
 		return "Goal [goalId=" + goalId + ", goalName=" + goalName + ", duration=" + duration + ", financialGoalValue="
-				+ financialGoalValue + "]";
+				+ financialGoalValue + ", transactionAmount=" + transactionAmount + "]";
 	}
-	
+
+
 	
 }

@@ -10,6 +10,5 @@ public interface IGoalService {
 	
 	public List<Goal> getAllGoals();
 	public Goal getGoalByGoalId(int goalId);
-	public Goal updateOneGoalDetail(UUID userId, int goalId, Date duration, Long financialGoalValue);
-
+	
 }

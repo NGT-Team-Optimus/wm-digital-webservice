@@ -41,14 +41,9 @@ public class UserGoalController {
     	
         UserGoal result = userGoalService.updateGoalDetails(userId, goalId, duration, financialGoalValue);
         System.out.println(result);
-//        if ("UserGoal not found".equals(result)) {
         if (result==null) {
             return ResponseEntity.notFound().build();
         } 
-//        else if ("Goal not found for the specified goalId".equals(result)) {
-//        	System.out.println("Done23");
-//            return ResponseEntity.notFound().build();
-//        }
         return ResponseEntity.ok(result);
     }
 
@@ -75,25 +70,17 @@ public class UserGoalController {
     
     
     @PutMapping("/getGoalDetails/{userId}/{goalId}")
-//    public ResponseEntity<String> updateGoalDetails(
     public ResponseEntity<Goal> updateGoalDetails(
             @PathVariable UUID userId,
             @PathVariable int goalId) {
     	System.out.println(userId);
     	System.out.println(goalId);
     	
-//        String result = userGoalService.getGoalDetails(userId, goalId);
     	Goal result = userGoalService.getGoalDetails(userId, goalId);
         System.out.println(result);
-//        if ("UserGoal not found".equals(result)) {
         if (result==null) {
             return ResponseEntity.notFound().build();
-//        } else if ("Goal not found for the specified goalId".equals(result)) {
         } 
-//        else if (result==null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.ok(result);
         return ResponseEntity.ok(result);
     }
     
@@ -112,19 +99,12 @@ public class UserGoalController {
     	
         UserGoal result = userGoalService.updateGoalDetails(userId, goalId, duration, financialGoalValue);
         System.out.println(result);
-//        if ("UserGoal not found".equals(result)) {
         if (result==null) {
         	System.out.println("Done22");
             return ResponseEntity.notFound().build();
         } 
-//        else if ("Goal not found for the specified goalId".equals(result)) {
-//        	System.out.println("Done23");
-//            return ResponseEntity.notFound().build();
-//        }
         return ResponseEntity.ok(result);
     }
-    
-    
-    
+
     
 }
