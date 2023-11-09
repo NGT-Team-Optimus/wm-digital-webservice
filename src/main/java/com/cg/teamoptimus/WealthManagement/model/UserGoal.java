@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.UUID;
 
 @Document(collection = "user-goals")
 public class UserGoal {
@@ -42,6 +43,9 @@ public class UserGoal {
     public UserGoal(User user, List<Goal> goals) {
         this.user = user;
         this.goals = goals;
+    }
+    public int getNumberOfGoals() {
+        return goals.size();
     }
 
     @Override

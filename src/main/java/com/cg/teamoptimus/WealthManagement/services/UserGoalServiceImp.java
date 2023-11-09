@@ -28,13 +28,35 @@ public class UserGoalServiceImp implements IUserGoalService {
     IGoalService goalService;
     @Autowired
     IUserService userService;
-    
-   
     @Override
     public UserGoal addGoalsByUser(@NotNull UserGoal userGoal) {
-
-        if (!userGoalRepo.existsByUserUserId(userGoal.getUser().getUserId())) {
-            User user = userService.getUserByUserId(userGoal.getUser().getUserId());
+        User user = userService.getUserByUserId(userGoal.getUser().getUserId());
+        if (user == null) {
+            logger.info("User not found");
+            return null;
+        }
+        // Check if a UserGoal already exists for the user
+        UserGoal existingUserGoal = userGoalRepo.findByUserUserId(user.getUserId());
+        if (existingUserGoal != null) {
+            // Check if any of the new goals already exist in the existing UserGoal
+            List<Goal> newGoals = userGoal.getGoals();
+            List<Goal> existingGoals = existingUserGoal.getGoals();
+            for (Goal newGoal : newGoals) {
+                if (existingGoals.stream().anyMatch(existingGoal -> existingGoal.getGoalId() == newGoal.getGoalId())) {
+                    logger.info("Goal already exists");
+                    return null; // Goal already exists, return null or handle as needed
+                }
+                Goal goal = goalService.getGoalByGoalId(newGoal.getGoalId());
+                newGoal.setGoalName(goal.getGoalName());
+                goal.setFinancialGoalValue(null);
+                goal.setDuration(null);
+            }
+            // If none of the new goals already exist, add them
+            existingGoals.addAll(newGoals);
+            // Save the updated UserGoal
+            return userGoalRepo.save(existingUserGoal);
+        } else {
+            // Create a new UserGoal and save it
             userGoal.setUser(user);
             for (Goal goal : userGoal.getGoals()) {
                 Goal goal1 = goalService.getGoalByGoalId(goal.getGoalId());
@@ -43,12 +65,8 @@ public class UserGoalServiceImp implements IUserGoalService {
                 goal.setDuration(null);
             }
             return userGoalRepo.save(userGoal);
-
         }
-        logger.info("User already exists");
-        return null;
     }
-    
     
     @Override
     public Goal getGoalByUserIdAndGoalId(UUID userId, int goalId) {
@@ -59,7 +77,7 @@ public class UserGoalServiceImp implements IUserGoalService {
     @Override
     public UserGoal updateGoalDetails(UUID userId, int goalId, Date duration, Long financialGoalValue) {
     	UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
-    	      
+
 
         if (userGoal == null) {
         	return null;
@@ -133,41 +151,45 @@ public class UserGoalServiceImp implements IUserGoalService {
                 
         return goalToUpdate;
 	}
-	
-	@Override
-	public UserGoal updateTranDetails(UUID userId, int goalId,Long TranAmount) {
-		
-		UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
-		if (userGoal == null) {
-        	return null;
-        }
-		
-		// Find the goal within the UserGoal by goalId
-        Goal goalToUpdate = null;
-        for (Goal goal : userGoal.getGoals()) {
-            if (goal.getGoalId() == goalId) {
-                goalToUpdate = goal;
-                
-                
-                if (goalToUpdate != null) {
-                	List<Long> tran=goalToUpdate.getTransactionAmount();
-//                	tran = tran.add(TranAmount);
-  
-                }
-                
-            	System.out.println(goalToUpdate);
-                break;
-            }
-        }
 
-        if (goalToUpdate == null) {
-            return null;
-        }
-        return userGoalRepo.save(userGoal);
-		
+	@Override
+	public int getGoalCountByUserId(UUID userId) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
-	
-	
+//	@Override
+//	public UserGoal updateTranDetails(UUID userId, int goalId,Long TranAmount) {
+//		
+//		UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
+//		if (userGoal == null) {
+//        	return null;
+//        }
+//		
+//		// Find the goal within the UserGoal by goalId
+//        Goal goalToUpdate = null;
+//        for (Goal goal : userGoal.getGoals()) {
+//            if (goal.getGoalId() == goalId) {
+//                goalToUpdate = goal;
+//                
+//                
+//                if (goalToUpdate != null) {
+//                	List<Long> tran=goalToUpdate.getTransactionAmount();
+////                	tran = tran.add(TranAmount);
+//  
+//                }
+//                
+//            	System.out.println(goalToUpdate);
+//                break;
+//            }
+//        }
+//
+//        if (goalToUpdate == null) {
+//            return null;
+//        }
+//        return userGoalRepo.save(userGoal);
+//		
+//	}
+
 	
 }

@@ -18,7 +18,10 @@ public interface IUserGoalService {
     public Goal getGoalDetails(UUID userId, int goalId);
     
     public UserGoal getUserGoal(UUID userId);
-    
-    public UserGoal updateTranDetails(UUID userId, int goalId,Long TranAmount);
-    
+
+//    public UserGoal updateTranDetails(UUID userId, int goalId,Long TranAmount);
+
+
+    public int getGoalCountByUserId(UUID userId);
+
 }
