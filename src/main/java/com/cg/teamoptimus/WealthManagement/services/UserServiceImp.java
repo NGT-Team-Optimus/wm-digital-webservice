@@ -12,7 +12,6 @@ import com.cg.teamoptimus.WealthManagement.repository.IUserRepository;
 
 @Service
 public class UserServiceImp implements IUserService {
-	
 
 	@Autowired
 	private IUserRepository userRepo;
@@ -63,5 +62,9 @@ public class UserServiceImp implements IUserService {
 		}
 		return "User Not Found";
 	}
+	
+	public User getUserByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
 
 }

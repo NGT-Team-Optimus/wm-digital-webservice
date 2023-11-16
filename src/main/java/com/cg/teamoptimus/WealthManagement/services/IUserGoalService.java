@@ -1,10 +1,10 @@
 package com.cg.teamoptimus.WealthManagement.services;
 
 import com.cg.teamoptimus.WealthManagement.model.Goal;
-import com.cg.teamoptimus.WealthManagement.model.User;
+import com.cg.teamoptimus.WealthManagement.model.Transaction;
 import com.cg.teamoptimus.WealthManagement.model.UserGoal;
-
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public interface IUserGoalService {
@@ -21,4 +21,11 @@ public interface IUserGoalService {
     
     public Goal updateOneGoalDetails(UUID userId, int goalId, Date duration, Long financialGoalValue);
 
+    List<Transaction> getAllTransactionsForUserGoal(UUID userId);
+    
+    Transaction addTransactionToGoal(UUID userId, int goalId, Transaction transaction);
+
+    List<Transaction> getAllTransactionsForGoal(UUID userId, int goalId);
+
+    
 }

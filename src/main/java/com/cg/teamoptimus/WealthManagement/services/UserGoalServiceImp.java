@@ -1,6 +1,7 @@
 package com.cg.teamoptimus.WealthManagement.services;
 
 import com.cg.teamoptimus.WealthManagement.model.Goal;
+import com.cg.teamoptimus.WealthManagement.model.Transaction;
 import com.cg.teamoptimus.WealthManagement.model.User;
 import com.cg.teamoptimus.WealthManagement.model.UserGoal;
 import com.cg.teamoptimus.WealthManagement.repository.IGoalRepository;
@@ -10,8 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -27,7 +29,6 @@ public class UserGoalServiceImp implements IUserGoalService {
     IGoalService goalService;
     @Autowired
     IUserService userService;
-    
    
     @Override
     public UserGoal addGoalsByUser(@NotNull UserGoal userGoal) {
@@ -48,7 +49,6 @@ public class UserGoalServiceImp implements IUserGoalService {
         return null;
     }
     
-    
     @Override
     public Goal getGoalByUserIdAndGoalId(UUID userId, int goalId) {
         return userGoalRepo.findGoalByUserUserIdAndGoalsGoalId(userId, goalId);
@@ -62,7 +62,6 @@ public class UserGoalServiceImp implements IUserGoalService {
     	System.out.println(userGoal);        
 
         if (userGoal == null) {
-//            return "UserGoal not found"; // Handle this case as needed
         	return null;
         }
 
@@ -74,7 +73,6 @@ public class UserGoalServiceImp implements IUserGoalService {
                 
                 
                 if (goalToUpdate != null) {
-//                  return "Goal not found for the specified goalId"; // Handle this case as needed
                 goalToUpdate.setDuration(duration);
                 goalToUpdate.setFinancialGoalValue(financialGoalValue);
   
@@ -86,7 +84,6 @@ public class UserGoalServiceImp implements IUserGoalService {
         }
 
         if (goalToUpdate == null) {
-//            return "Goal not found for the specified goalId"; // Handle this case as needed
             return null;
         }
 
@@ -121,42 +118,21 @@ public class UserGoalServiceImp implements IUserGoalService {
         }
         System.out.println(userGoal.getUser().getUsername());
 
-        // Find the goal within the UserGoal by goalId
         Goal goalToUpdate = null;
         
         for (Goal goal : userGoal.getGoals()) {
             if (goal.getGoalId() == goalId) {
-//            	System.out.println("----------------");
-//            	System.out.println(goal);
-//            	System.out.println("----------------");
                 goalToUpdate = goal;
-//                System.out.println("----------------");
-//            	System.out.println(goalToUpdate);
-//            	System.out.println("----------------");
                 break;
             }
         }
         
         if (goalToUpdate == null) {
-//            return "Goal not found for the specified goalId"; // Handle this case as needed
         	return null;
         }
-//        System.out.println("----------------");
-//    	System.out.println(goalToUpdate);
-//    	System.out.println("----------------");
-//        
-//                
-//        System.out.println(goalToUpdate.getGoalId());
-//        System.out.println(goalToUpdate.getGoalName());
-//        System.out.println(goalToUpdate.getDuration());
-//        System.out.println(goalToUpdate.getFinancialGoalValue());
                 
         return goalToUpdate;
 	}
-	
-	
-	
-	
 	
 	@Override
     public Goal updateOneGoalDetails(UUID userId, int goalId, Date duration, Long financialGoalValue) {
@@ -165,11 +141,9 @@ public class UserGoalServiceImp implements IUserGoalService {
     	System.out.println(userGoal);        
 
         if (userGoal == null) {
-//            return "UserGoal not found"; // Handle this case as needed
         	return null;
         }
 
-        // Find the goal within the UserGoal by goalId
         Goal goalToUpdate = null;
         for (Goal goal : userGoal.getGoals()) {
             if (goal.getGoalId() == goalId) {
@@ -179,26 +153,109 @@ public class UserGoalServiceImp implements IUserGoalService {
         }
 
         if (goalToUpdate == null) {
-//            return "Goal not found for the specified goalId"; // Handle this case as needed
             return null;
         }
 
-        // Update the duration and financialGoalValue
         goalToUpdate.setDuration(duration);
         goalToUpdate.setFinancialGoalValue(financialGoalValue);
         
-        // Save the updated UserGoal
-//        userGoalRepo.save(userGoal);
         goalRepo.save(goalToUpdate);
-        
-        System.out.println(userGoal);
         
         return goalToUpdate;
     }
 	
+	@Override
+    public List<Transaction> getAllTransactionsForUserGoal(UUID userId) {
+        UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
+        if (userGoal != null) {
+            List<Transaction> transactions = new ArrayList<>();
+            for (Goal goal : userGoal.getGoals()) {
+                transactions.addAll(goal.getTransactions());
+            }
+            return transactions;
+        }
+        return List.of();
+    }
 	
-	
-	
-	
-	
-}
+	 @Override
+	    public Transaction addTransactionToGoal(UUID userId, int goalId, Transaction transaction) {
+	        UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
+	        
+	        if (userGoal == null) {
+	            return null;
+	        }
+
+	        Goal goalToUpdate = null;
+	        for (Goal goal : userGoal.getGoals()) {
+	            if (goal.getGoalId() == goalId) {
+	                goalToUpdate = goal;
+	                break;
+	            }
+	        }
+
+	        if (goalToUpdate == null) {
+	            return null;
+	        }
+
+	        List<Transaction> goalTransactions = goalToUpdate.getTransactions();
+	        if (goalTransactions == null) {
+	            goalTransactions = new ArrayList<>();
+	        }
+	        
+	     // Check for duplicate transaction IDs
+	        boolean isDuplicate = goalTransactions.stream()
+	        	    .anyMatch(existingTransaction -> existingTransaction.getTransactionId() == transaction.getTransactionId());
+	        if (isDuplicate) {
+	        	System.out.println("Same Transaction ID");
+	            return null;
+	        }
+	        
+	        goalTransactions.add(transaction);
+            goalToUpdate.setTransactions(goalTransactions);
+
+            userGoalRepo.save(userGoal);
+
+            return transaction;
+	    }
+	 
+	 @Override
+	    public List<Transaction> getAllTransactionsForGoal(UUID userId, int goalId) {
+	        UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
+	        if (userGoal != null) {
+	            // Find the goal within the UserGoal by goalId
+	            for (Goal goal : userGoal.getGoals()) {
+	                if (goal.getGoalId() == goalId) {
+	                	
+	                	 List<Transaction> transactions = goal.getTransactions();
+	                	 if (transactions != null) {
+	                	 Long totalAmount = calculateTotalAmount(transactions);
+	                     updateTotalAmount(userId, goalId, totalAmount);
+	                     return transactions;
+	                	 }else {
+	                		 return new ArrayList<>();
+	                	 }
+	                }
+	            }
+	        }
+	        return null; 
+	    }
+	 
+	 private Long calculateTotalAmount(List<Transaction> transactions) {
+	        return transactions.stream()
+	                .mapToLong(Transaction::getAmount)
+	                .sum();
+	    }
+	 
+	 private void updateTotalAmount(UUID userId, int goalId, Long totalAmount) {
+	        UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
+	        if (userGoal != null) {
+	            for (Goal goal : userGoal.getGoals()) {
+	                if (goal.getGoalId() == goalId) {
+	                    goal.setTotalAmount(totalAmount);
+	                    userGoalRepo.save(userGoal); 
+	                    break;
+	                }
+	            }
+	        }
+	    }
+	}

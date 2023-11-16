@@ -12,10 +12,4 @@ public class Home {
 		return text;
 	}
 	
-	@RequestMapping("/getusers")
-	public String getUser() {
-		
-		return "{\"name\":\"Pratik\"}";
-	}
-
 }

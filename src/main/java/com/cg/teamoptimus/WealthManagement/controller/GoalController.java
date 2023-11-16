@@ -23,5 +23,4 @@ public class GoalController {
 		return goalService.getAllGoals();
 	}
 
-
 }
