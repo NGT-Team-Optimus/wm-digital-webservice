@@ -28,4 +28,6 @@ public interface IUserGoalService {
     List<Transaction> getAllTransactionsForGoal(UUID userId, int goalId);
 
     
+    public int getGoalCountByUserId(UUID userId);
+
 }

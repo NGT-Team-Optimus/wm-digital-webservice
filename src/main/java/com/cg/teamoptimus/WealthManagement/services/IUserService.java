@@ -8,8 +8,6 @@ public interface IUserService{
 	public UUID register(User user);
 	User getUserByUserId(UUID userId);
 	String forgotPassword(String email);
-	String confirmPassword(String email,String code,String newPassword);
+	String confirmPassword(String email,String code,String newPassword);	
 	User getUserByEmail(String email);
-	
-
 }

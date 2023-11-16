@@ -29,12 +29,36 @@ public class UserGoalServiceImp implements IUserGoalService {
     IGoalService goalService;
     @Autowired
     IUserService userService;
-   
+
     @Override
     public UserGoal addGoalsByUser(@NotNull UserGoal userGoal) {
-
-        if (!userGoalRepo.existsByUserUserId(userGoal.getUser().getUserId())) {
-            User user = userService.getUserByUserId(userGoal.getUser().getUserId());
+        User user = userService.getUserByUserId(userGoal.getUser().getUserId());
+        if (user == null) {
+            logger.info("User not found");
+            return null;
+        }
+        // Check if a UserGoal already exists for the user
+        UserGoal existingUserGoal = userGoalRepo.findByUserUserId(user.getUserId());
+        if (existingUserGoal != null) {
+            // Check if any of the new goals already exist in the existing UserGoal
+            List<Goal> newGoals = userGoal.getGoals();
+            List<Goal> existingGoals = existingUserGoal.getGoals();
+            for (Goal newGoal : newGoals) {
+                if (existingGoals.stream().anyMatch(existingGoal -> existingGoal.getGoalId() == newGoal.getGoalId())) {
+                    logger.info("Goal already exists");
+                    return null; // Goal already exists, return null or handle as needed
+                }
+                Goal goal = goalService.getGoalByGoalId(newGoal.getGoalId());
+                newGoal.setGoalName(goal.getGoalName());
+                goal.setFinancialGoalValue(null);
+                goal.setDuration(null);
+            }
+            // If none of the new goals already exist, add them
+            existingGoals.addAll(newGoals);
+            // Save the updated UserGoal
+            return userGoalRepo.save(existingUserGoal);
+        } else {
+            // Create a new UserGoal and save it
             userGoal.setUser(user);
             for (Goal goal : userGoal.getGoals()) {
                 Goal goal1 = goalService.getGoalByGoalId(goal.getGoalId());
@@ -43,10 +67,7 @@ public class UserGoalServiceImp implements IUserGoalService {
                 goal.setDuration(null);
             }
             return userGoalRepo.save(userGoal);
-
         }
-        logger.info("User already exists");
-        return null;
     }
     
     @Override
@@ -58,7 +79,6 @@ public class UserGoalServiceImp implements IUserGoalService {
     @Override
     public UserGoal updateGoalDetails(UUID userId, int goalId, Date duration, Long financialGoalValue) {
     	UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
-    	
     	System.out.println(userGoal);        
 
         if (userGoal == null) {
@@ -163,6 +183,7 @@ public class UserGoalServiceImp implements IUserGoalService {
         
         return goalToUpdate;
     }
+
 	
 	@Override
     public List<Transaction> getAllTransactionsForUserGoal(UUID userId) {
@@ -175,6 +196,19 @@ public class UserGoalServiceImp implements IUserGoalService {
             return transactions;
         }
         return List.of();
+	}
+
+
+    @Override
+    public int getGoalCountByUserId(UUID userId) {
+        UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
+        if (userGoal != null) {
+            int noOfGoals=userGoal.getNumberOfGoals();
+            // Return the count of goals for the user
+            return noOfGoals;
+        }
+        return 0; // If no UserGoal found, return 0 goals
+
     }
 	
 	 @Override

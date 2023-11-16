@@ -91,6 +91,11 @@ public class UserGoalController {
         } 
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/getNumberOfGoalsForUser/{userId}")
+    public int getGoalCountByUserId(@PathVariable("userId") UUID userId) {
+        return userGoalService.getGoalCountByUserId(userId);
+    }
     
     @PostMapping("/{userId}/{goalId}/transactions-add")
     public ResponseEntity<String> addTransactionToGoal(
