@@ -45,5 +45,6 @@ public class GoalServiceImp implements IGoalService {
 	public Goal getGoalByGoalId(int goalId) {
 		return goalRepo.findByGoalId(goalId);
 	}
+	
 
 }

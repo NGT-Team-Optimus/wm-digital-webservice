@@ -23,5 +23,7 @@ public interface IUserGoalService {
 
 
     public int getGoalCountByUserId(UUID userId);
+    
+    public Goal addTransactionToGoal(UUID userId, int goalId,Long TranAmount);
 
 }

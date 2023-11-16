@@ -47,6 +47,8 @@ public class UserGoal {
     public int getNumberOfGoals() {
         return goals.size();
     }
+    
+    
 
     @Override
     public String toString() {

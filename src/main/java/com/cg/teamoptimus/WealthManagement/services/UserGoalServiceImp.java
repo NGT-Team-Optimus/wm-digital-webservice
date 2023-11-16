@@ -63,6 +63,7 @@ public class UserGoalServiceImp implements IUserGoalService {
                 goal.setGoalName(goal1.getGoalName());
                 goal.setFinancialGoalValue(null);
                 goal.setDuration(null);
+//                goal.set();
             }
             return userGoalRepo.save(userGoal);
         }
@@ -158,38 +159,41 @@ public class UserGoalServiceImp implements IUserGoalService {
 		return 0;
 	}
 	
-//	@Override
-//	public UserGoal updateTranDetails(UUID userId, int goalId,Long TranAmount) {
-//		
-//		UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
-//		if (userGoal == null) {
-//        	return null;
-//        }
-//		
-//		// Find the goal within the UserGoal by goalId
-//        Goal goalToUpdate = null;
-//        for (Goal goal : userGoal.getGoals()) {
-//            if (goal.getGoalId() == goalId) {
-//                goalToUpdate = goal;
-//                
-//                
-//                if (goalToUpdate != null) {
-//                	List<Long> tran=goalToUpdate.getTransactionAmount();
-////                	tran = tran.add(TranAmount);
-//  
-//                }
-//                
-//            	System.out.println(goalToUpdate);
-//                break;
-//            }
-//        }
-//
-//        if (goalToUpdate == null) {
-//            return null;
-//        }
-//        return userGoalRepo.save(userGoal);
-//		
-//	}
+	
+	
+	@Override
+	public Goal addTransactionToGoal(UUID userId, int goalId,Long TranAmount) {
+		
+		UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
+		if (userGoal == null) {
+        	return null;
+        }
+		
+		// Find the goal within the UserGoal by goalId
+        Goal goalToUpdate = null;
+        for (Goal goal : userGoal.getGoals()) {
+            if (goal.getGoalId() == goalId) {
+                goalToUpdate = goal;
+                
+                
+                if (goalToUpdate != null) {
+                	goalToUpdate.addTransaction(TranAmount);
+                }
+                
+            	System.out.println(goalToUpdate);
+                break;
+            }
+        }
+
+        if (goalToUpdate == null) {
+            return null;
+        }
+        
+        userGoalRepo.save(userGoal);
+        
+        return goalToUpdate;
+		
+	}
 
 	
 }
