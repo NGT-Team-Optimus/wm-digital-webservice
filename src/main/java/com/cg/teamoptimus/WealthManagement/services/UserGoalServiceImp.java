@@ -6,6 +6,9 @@ import com.cg.teamoptimus.WealthManagement.model.User;
 import com.cg.teamoptimus.WealthManagement.model.UserGoal;
 import com.cg.teamoptimus.WealthManagement.repository.IGoalRepository;
 import com.cg.teamoptimus.WealthManagement.repository.IUserGoalRepository;
+
+import ch.qos.logback.core.status.Status;
+
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -153,36 +156,6 @@ public class UserGoalServiceImp implements IUserGoalService {
                 
         return goalToUpdate;
 	}
-	
-//	@Override
-//    public Goal updateOneGoalDetails(UUID userId, int goalId, Date duration, Long financialGoalValue) {
-//    	UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
-//    	
-//    	System.out.println(userGoal);        
-//
-//        if (userGoal == null) {
-//        	return null;
-//        }
-//
-//        Goal goalToUpdate = null;
-//        for (Goal goal : userGoal.getGoals()) {
-//            if (goal.getGoalId() == goalId) {
-//                goalToUpdate = goal;
-//                break;
-//            }
-//        }
-//
-//        if (goalToUpdate == null) {
-//            return null;
-//        }
-//
-//        goalToUpdate.setDuration(duration);
-//        goalToUpdate.setFinancialGoalValue(financialGoalValue);
-//        
-//        goalRepo.save(goalToUpdate);
-//        
-//        return goalToUpdate;
-//    }
 
 	
 	@Override
@@ -246,6 +219,17 @@ public class UserGoalServiceImp implements IUserGoalService {
 	        
 	        goalTransactions.add(transaction);
             goalToUpdate.setTransactions(goalTransactions);
+            Long totalAmount = calculateTotalAmount(goalTransactions);
+            goalToUpdate.setTotalAmount(totalAmount);
+            
+            
+            if (goalToUpdate.getFinancialGoalValue() != null) {
+                if (totalAmount >= goalToUpdate.getFinancialGoalValue()) {
+                	goalToUpdate.setStatus("Completed");
+                } else {
+                	goalToUpdate.setStatus("Active");
+                }
+            }
 
             userGoalRepo.save(userGoal);
 
@@ -286,7 +270,16 @@ public class UserGoalServiceImp implements IUserGoalService {
 	            for (Goal goal : userGoal.getGoals()) {
 	                if (goal.getGoalId() == goalId) {
 	                    goal.setTotalAmount(totalAmount);
-	                    userGoalRepo.save(userGoal); 
+	                    System.out.println(totalAmount);
+	                    if (goal.getFinancialGoalValue() != null) {
+	                        if (totalAmount >= goal.getFinancialGoalValue()) {
+	                            goal.setStatus("Completed");
+	                        } else {
+	                            goal.setStatus("Active");
+	                        }
+	                    }
+	                    System.out.println(goal.getStatus());
+	                    userGoalRepo.save(userGoal);
 	                    break;
 	                }
 	            }

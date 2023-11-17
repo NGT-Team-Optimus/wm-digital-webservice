@@ -73,7 +73,7 @@ public class UserGoalController {
     
     
     
-    @PutMapping("/getGoalDetails/{userId}/{goalId}")
+    @GetMapping("/getGoalDetails/{userId}/{goalId}")
     public ResponseEntity<Goal> updateGoalDetails(
             @PathVariable UUID userId,
             @PathVariable int goalId) {
