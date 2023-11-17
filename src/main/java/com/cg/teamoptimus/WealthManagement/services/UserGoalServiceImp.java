@@ -286,6 +286,16 @@ public class UserGoalServiceImp implements IUserGoalService {
 	            for (Goal goal : userGoal.getGoals()) {
 	                if (goal.getGoalId() == goalId) {
 	                    goal.setTotalAmount(totalAmount);
+	                    
+	                    // Set the status for the goal based on the total amount
+	                    if (goal.getFinancialGoalValue() != null) {
+	                        if (totalAmount >= goal.getFinancialGoalValue()) {
+	                            goal.setStatus("Completed");
+	                        } else {
+	                            goal.setStatus("Active");
+	                        }
+	                    }
+	                    
 	                    userGoalRepo.save(userGoal); 
 	                    break;
 	                }
