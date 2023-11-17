@@ -18,8 +18,9 @@ public interface IUserGoalService {
     public Goal getGoalDetails(UUID userId, int goalId);
     
     public UserGoal getUserGoal(UUID userId);
-    
-    public Goal updateOneGoalDetails(UUID userId, int goalId, Date duration, Long financialGoalValue);
+
+//    public UserGoal updateTranDetails(UUID userId, int goalId,Long TranAmount);
+
 
     List<Transaction> getAllTransactionsForUserGoal(UUID userId);
     
@@ -29,5 +30,5 @@ public interface IUserGoalService {
 
     
     public int getGoalCountByUserId(UUID userId);
-
+    
 }

@@ -154,35 +154,35 @@ public class UserGoalServiceImp implements IUserGoalService {
         return goalToUpdate;
 	}
 	
-	@Override
-    public Goal updateOneGoalDetails(UUID userId, int goalId, Date duration, Long financialGoalValue) {
-    	UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
-    	
-    	System.out.println(userGoal);        
-
-        if (userGoal == null) {
-        	return null;
-        }
-
-        Goal goalToUpdate = null;
-        for (Goal goal : userGoal.getGoals()) {
-            if (goal.getGoalId() == goalId) {
-                goalToUpdate = goal;
-                break;
-            }
-        }
-
-        if (goalToUpdate == null) {
-            return null;
-        }
-
-        goalToUpdate.setDuration(duration);
-        goalToUpdate.setFinancialGoalValue(financialGoalValue);
-        
-        goalRepo.save(goalToUpdate);
-        
-        return goalToUpdate;
-    }
+//	@Override
+//    public Goal updateOneGoalDetails(UUID userId, int goalId, Date duration, Long financialGoalValue) {
+//    	UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
+//    	
+//    	System.out.println(userGoal);        
+//
+//        if (userGoal == null) {
+//        	return null;
+//        }
+//
+//        Goal goalToUpdate = null;
+//        for (Goal goal : userGoal.getGoals()) {
+//            if (goal.getGoalId() == goalId) {
+//                goalToUpdate = goal;
+//                break;
+//            }
+//        }
+//
+//        if (goalToUpdate == null) {
+//            return null;
+//        }
+//
+//        goalToUpdate.setDuration(duration);
+//        goalToUpdate.setFinancialGoalValue(financialGoalValue);
+//        
+//        goalRepo.save(goalToUpdate);
+//        
+//        return goalToUpdate;
+//    }
 
 	
 	@Override
@@ -286,16 +286,6 @@ public class UserGoalServiceImp implements IUserGoalService {
 	            for (Goal goal : userGoal.getGoals()) {
 	                if (goal.getGoalId() == goalId) {
 	                    goal.setTotalAmount(totalAmount);
-	                    
-	                    // Set the status for the goal based on the total amount
-	                    if (goal.getFinancialGoalValue() != null) {
-	                        if (totalAmount >= goal.getFinancialGoalValue()) {
-	                            goal.setStatus("Completed");
-	                        } else {
-	                            goal.setStatus("Active");
-	                        }
-	                    }
-	                    
 	                    userGoalRepo.save(userGoal); 
 	                    break;
 	                }

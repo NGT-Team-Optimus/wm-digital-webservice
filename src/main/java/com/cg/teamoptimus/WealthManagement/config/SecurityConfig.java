@@ -43,15 +43,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             		"/getUserGoalByUserId/{userId}",
             		"/getGoalByUserGoalIdAndGoalId/{userGoalId}/{goalId}",
             		"/getGoalDetails/{userId}/{goalId}",
-            		"/updateOneGoalDetails/{userId}/{goalId}",
             		"/user/api/forget_password/{email}",
             		"/user/api/confirm_password",
-            		"/transactions/get",
-            		"/transactions/add",
             		"/{userId}/transactions",
-            		"/{userId}/{goalId}/transactions-add",
             		"/{userId}/{goalId}/transactions",
-                    "/getNumberOfGoalsForUser/{userId}").permitAll()
+            		"/{userId}/{goalId}/transactions-add",
+                    "/getNumberOfGoalsForUser/{userId}",
+                    "/add-transaction/{userId}/{goalId}").permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

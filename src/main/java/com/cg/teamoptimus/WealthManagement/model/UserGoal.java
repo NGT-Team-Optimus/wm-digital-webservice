@@ -13,7 +13,8 @@ public class UserGoal {
     private String id;
     private User user;
     
-    private List<Goal> goals;
+    private List<Goal> goals; //All goals
+
 
     public String getId() {
         return id;
@@ -46,6 +47,8 @@ public class UserGoal {
     public int getNumberOfGoals() {
         return goals.size();
     }
+    
+    
 
     @Override
     public String toString() {

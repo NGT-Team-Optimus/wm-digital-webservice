@@ -17,20 +17,22 @@ public class Goal {
     private Long totalAmount;
     
 
+	
+	
 
-	public Goal(int goalId, String goalName, Date duration, Long financialGoalValue, List<Transaction> transactions,
-			Long totalAmount, String status) {
+	public Goal(int goalId, String goalName, Date duration, Long financialGoalValue, String status,
+			List<Transaction> transactions, Long totalAmount) {
 		super();
 		this.goalId = goalId;
 		this.goalName = goalName;
 		this.duration = duration;
 		this.financialGoalValue = financialGoalValue;
+		this.status = status;
 		this.transactions = transactions;
 		this.totalAmount = totalAmount;
-		this.status = status;
 	}
-	
-	
+
+
 
 	public String isStatus() {
 		return status;
@@ -41,6 +43,7 @@ public class Goal {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 
 
 
@@ -98,14 +101,21 @@ public class Goal {
 
 	
 	
+	public String getStatus() {
+		return status;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Goal [goalId=" + goalId + ", goalName=" + goalName + ", duration=" + duration + ", financialGoalValue="
-				+ financialGoalValue + ", transactions=" + transactions + ", totalAmount=" + totalAmount + ", status="
-				+ status + "]";
+				+ financialGoalValue + ", status=" + status + ", transactions=" + transactions + ", totalAmount="
+				+ totalAmount + "]";
 	}
 
 	
 
-   
+
+
 }

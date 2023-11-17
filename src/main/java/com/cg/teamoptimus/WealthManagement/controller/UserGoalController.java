@@ -3,6 +3,7 @@ package com.cg.teamoptimus.WealthManagement.controller;
 import com.cg.teamoptimus.WealthManagement.model.Goal;
 import com.cg.teamoptimus.WealthManagement.model.Transaction;
 import com.cg.teamoptimus.WealthManagement.model.UserGoal;
+import com.cg.teamoptimus.WealthManagement.repository.IGoalRepository;
 import com.cg.teamoptimus.WealthManagement.services.IUserGoalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,9 @@ import org.springframework.format.annotation.DateTimeFormat; // Added import for
 public class UserGoalController {
     @Autowired
     IUserGoalService userGoalService;
+    @Autowired
+    IGoalRepository goalService;
+   
 
     @PostMapping("/addGoals")
     public ResponseEntity<UserGoal> addUserGoals(@RequestBody UserGoal userGoal) {
@@ -38,6 +42,7 @@ public class UserGoalController {
             @RequestParam Long financialGoalValue) {
     	
         UserGoal result = userGoalService.updateGoalDetails(userId, goalId, duration, financialGoalValue);
+
         if (result==null) {
             return ResponseEntity.notFound().build();
         } 
@@ -65,11 +70,14 @@ public class UserGoalController {
     	return userGoalService.getUserGoal(userId);
     }
 
-    @GetMapping("/getGoalDetails/{userId}/{goalId}")
+    
+    
+    
+    @PutMapping("/getGoalDetails/{userId}/{goalId}")
     public ResponseEntity<Goal> updateGoalDetails(
             @PathVariable UUID userId,
             @PathVariable int goalId) {
-
+    	
     	Goal result = userGoalService.getGoalDetails(userId, goalId);
         System.out.println(result);
         if (result==null) {
@@ -86,11 +94,13 @@ public class UserGoalController {
             @RequestParam Long financialGoalValue) {
     	
         UserGoal result = userGoalService.updateGoalDetails(userId, goalId, duration, financialGoalValue);
+
         if (result==null) {
             return ResponseEntity.notFound().build();
         } 
         return ResponseEntity.ok(result);
     }
+
 
     @GetMapping("/getNumberOfGoalsForUser/{userId}")
     public int getGoalCountByUserId(@PathVariable("userId") UUID userId) {
@@ -122,7 +132,7 @@ public class UserGoalController {
 
         return ResponseEntity.ok(transactions);
         
-    }
-
-  
+    }    
+ 
+    
 }

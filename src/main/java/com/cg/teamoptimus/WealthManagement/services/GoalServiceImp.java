@@ -40,35 +40,35 @@ public class GoalServiceImp implements IGoalService {
 		return goalRepo.findByGoalId(goalId);
 	}
 	
-	@Override
-    public Goal updateOneGoalDetail(UUID userId, int goalId, Date duration, Long financialGoalValue) {
-    	UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
-    	
-    	System.out.println(userGoal);        
-
-        if (userGoal == null) {
-        //    return "UserGoal not found"; // Handle this case as needed
-        	return null;
-        }
-
-        Goal goalToUpdate = null;
-        for (Goal goal : userGoal.getGoals()) {
-            if (goal.getGoalId() == goalId) {
-                goalToUpdate = goal;
-                break;
-            }
-        }
-
-        if (goalToUpdate == null) {
-            return null;
-        }
-
-        goalToUpdate.setDuration(duration);
-        goalToUpdate.setFinancialGoalValue(financialGoalValue);
-        
-        
-        return goalRepo.save(goalToUpdate);
-    }
+//	@Override
+//    public Goal updateOneGoalDetail(UUID userId, int goalId, Date duration, Long financialGoalValue) {
+//    	UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
+//    	
+//    	System.out.println(userGoal);        
+//
+//        if (userGoal == null) {
+//        //    return "UserGoal not found"; // Handle this case as needed
+//        	return null;
+//        }
+//
+//        Goal goalToUpdate = null;
+//        for (Goal goal : userGoal.getGoals()) {
+//            if (goal.getGoalId() == goalId) {
+//                goalToUpdate = goal;
+//                break;
+//            }
+//        }
+//
+//        if (goalToUpdate == null) {
+//            return null;
+//        }
+//
+//        goalToUpdate.setDuration(duration);
+//        goalToUpdate.setFinancialGoalValue(financialGoalValue);
+//        
+//        
+//        return goalRepo.save(goalToUpdate);
+//    }
 
 
 }
