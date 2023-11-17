@@ -49,20 +49,7 @@ public class UserGoalController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/getGoalByUserIdAndGoalId/{userId}/{goalId}")
-    public ResponseEntity<Goal> getGoalByUserIdAndGoalId(
-            @PathVariable UUID userId,
-            @PathVariable int goalId) {
-    	
-        Goal goal = userGoalService.getGoalByUserIdAndGoalId(userId, goalId);
-        
-        if (goal == null) {
-            // Handle the case where the goal is not found
-            return ResponseEntity.notFound().build();
-        }
 
-        return ResponseEntity.ok(goal);
-    }
     
     @GetMapping("/getUserGoalByUserId/{userId}")
     public UserGoal getUserGoal( @PathVariable("userId") UUID userId) {
@@ -79,27 +66,11 @@ public class UserGoalController {
             @PathVariable int goalId) {
     	
     	Goal result = userGoalService.getGoalDetails(userId, goalId);
-        System.out.println(result);
         if (result==null) {
             return ResponseEntity.notFound().build();
         } 
         return ResponseEntity.ok(result);
     } 
-    
-    @PutMapping("/updateOneGoalDetails/{userId}/{goalId}")
-    public ResponseEntity<UserGoal> updateOneGoalDetails(
-            @PathVariable UUID userId,
-            @PathVariable int goalId,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date duration,
-            @RequestParam Long financialGoalValue) {
-    	
-        UserGoal result = userGoalService.updateGoalDetails(userId, goalId, duration, financialGoalValue);
-
-        if (result==null) {
-            return ResponseEntity.notFound().build();
-        } 
-        return ResponseEntity.ok(result);
-    }
 
 
     @GetMapping("/getNumberOfGoalsForUser/{userId}")
