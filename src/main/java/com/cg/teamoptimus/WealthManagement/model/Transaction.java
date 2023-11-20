@@ -10,7 +10,11 @@ public class Transaction {
 
     public Transaction(int transactionId, Date transactionDate, Long amount) {
         this.transactionId = transactionId;
-        this.transactionDate = transactionDate;
+        if (transactionDate == null) {
+            this.transactionDate = new Date(); // Initialize with the current date if null is provided
+        } else {
+            this.transactionDate = transactionDate; // Use provided transactionDate
+        }
         this.amount = amount;
     }
 

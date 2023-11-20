@@ -191,7 +191,7 @@ public class UserGoalServiceImp implements IUserGoalService {
 	        if (userGoal == null) {
 	            return null;
 	        }
-
+	        
 	        Goal goalToUpdate = null;
 	        for (Goal goal : userGoal.getGoals()) {
 	            if (goal.getGoalId() == goalId) {
