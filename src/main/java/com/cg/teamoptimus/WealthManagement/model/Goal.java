@@ -1,8 +1,11 @@
 package com.cg.teamoptimus.WealthManagement.model;
 
+import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "goals")
@@ -15,13 +18,13 @@ public class Goal {
     private String status; 
     private List<Transaction> transactions;
     private Long totalAmount;
-    
-
+	private String goalTerm;
+	private boolean isFirstTimeDurationSet = true;
 	
 	
 
 	public Goal(int goalId, String goalName, Date duration, Long financialGoalValue, String status,
-			List<Transaction> transactions, Long totalAmount) {
+			List<Transaction> transactions, Long totalAmount, String goalTerm, boolean isFirstTimeDurationSet) {
 		super();
 		this.goalId = goalId;
 		this.goalName = goalName;
@@ -29,48 +32,39 @@ public class Goal {
 		this.financialGoalValue = financialGoalValue;
 		this.status = status;
 		this.transactions = transactions;
+		
 		this.totalAmount = totalAmount;
+		this.goalTerm = goalTerm;
+		this.isFirstTimeDurationSet = isFirstTimeDurationSet;
 	}
-
-
-
-	public String isStatus() {
-		return status;
-	}
-
-
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-
 
 
 	public int getGoalId() {
-        return goalId;
-    }
+		return goalId;
+	}
+	public void setGoalId(int goalId) {
+		this.goalId = goalId;
+	}
+	public String getGoalName() {
+		return goalName;
+	}
+	public void setGoalName(String goalName) {
+		this.goalName = goalName;
+	}
+	
+	public Date getDuration() {
+		return duration;
+	}
+	public void setDuration(Date duration) {
+		if (isFirstTimeDurationSet && duration != null) {
+			this.duration = duration;
+			setGoalTerm();
+			isFirstTimeDurationSet = false;
+		} else {
+			this.duration = duration;
+		}
 
-    public void setGoalId(int goalId) {
-        this.goalId = goalId;
-    }
-
-    public String getGoalName() {
-        return goalName;
-    }
-
-    public void setGoalName(String goalName) {
-        this.goalName = goalName;
-    }
-
-    public Date getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Date duration) {
-        this.duration = duration;
-    }
-
+	}
     public Long getFinancialGoalValue() {
         return financialGoalValue;
     }
@@ -78,6 +72,13 @@ public class Goal {
     public void setFinancialGoalValue(Long financialGoalValue) {
         this.financialGoalValue = financialGoalValue;
     }
+    
+	public String isStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
     public List<Transaction> getTransactions() {
         return transactions;
@@ -107,13 +108,38 @@ public class Goal {
 
 
 
+	public String getGoalTerm() {
+		return goalTerm;
+	}
+
+	private void setGoalTerm() {
+		if (duration != null) {
+			Date currentDate = new Date();
+			long durationInMillis = duration.getTime() - currentDate.getTime();
+			long months = Duration.ofMillis(durationInMillis).toDays() / 30;
+			if (months < 3) {
+				this.goalTerm = "Short Term";
+			} else if (months >= 3 && months < 12) {
+				this.goalTerm = "Mid Term";
+			} else {
+				this.goalTerm = "Long Term";
+			}
+		} else {
+			this.goalTerm = "null";
+		}
+	}
+
+
 	@Override
 	public String toString() {
 		return "Goal [goalId=" + goalId + ", goalName=" + goalName + ", duration=" + duration + ", financialGoalValue="
 				+ financialGoalValue + ", status=" + status + ", transactions=" + transactions + ", totalAmount="
-				+ totalAmount + "]";
+				+ totalAmount + ", goalTerm=" + goalTerm + ", isFirstTimeDurationSet=" + isFirstTimeDurationSet + "]";
 	}
 
+
+
+	
 	
 
 

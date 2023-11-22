@@ -285,4 +285,43 @@ public class UserGoalServiceImp implements IUserGoalService {
 	            }
 	        }
 	    }
-	}
+    @Override
+    public List<Goal> getShortTermGoalsByUser(UUID userId) {
+        UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
+        List<Goal> shortTermGoals=new ArrayList<>();
+        for(Goal goal:userGoal.getGoals()){
+            if(goal.getGoalTerm()!=null && (goal.getGoalTerm()).equals("Short Term")) {
+                shortTermGoals.add(goal);
+            }
+        }
+        return shortTermGoals;
+    }
+
+    @Override
+    public List<Goal> getMidTermGoalsByUser(UUID userId) {
+        UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
+        List<Goal> midTermGoals=new ArrayList<>();
+        for(Goal goal:userGoal.getGoals()){
+            if(goal.getGoalTerm()!=null &&(goal.getGoalTerm()).equals("Mid Term")) {
+                midTermGoals.add(goal);
+            }
+        }
+        return midTermGoals;
+    }
+
+    @Override
+    public List<Goal> getLongTermGoalsByUser(UUID userId) {
+        UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
+        List<Goal> longTermGoals=new ArrayList<>();
+        for(Goal goal:userGoal.getGoals()){
+            if(goal.getGoalTerm()!=null &&(goal.getGoalTerm()).equals("Long Term")) {
+                longTermGoals.add(goal);
+            }
+        }
+        return longTermGoals;
+    }
+	
+	
+	
+	
+}

@@ -30,5 +30,9 @@ public interface IUserGoalService {
 
     
     public int getGoalCountByUserId(UUID userId);
-    
+    public List<Goal> getShortTermGoalsByUser(UUID userId);
+    public List<Goal> getMidTermGoalsByUser(UUID userId);
+    public List<Goal> getLongTermGoalsByUser(UUID userId);
+
+
 }

@@ -15,7 +15,7 @@ public class UserGoal {
     
     private List<Goal> goals; //All goals
 
-
+    
     public String getId() {
         return id;
     }

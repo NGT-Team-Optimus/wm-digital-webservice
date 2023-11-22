@@ -43,6 +43,5 @@ public class UserController {
     public String updateUserDetails(@RequestBody User user) {
         return ((UserController) userService).updateUserDetails(user);
     }
-
 }
 

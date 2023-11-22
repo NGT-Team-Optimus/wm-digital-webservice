@@ -77,6 +77,19 @@ public class UserGoalController {
     public int getGoalCountByUserId(@PathVariable("userId") UUID userId) {
         return userGoalService.getGoalCountByUserId(userId);
     }
+
+    @GetMapping("/getGoals/{userId}/shortTerm")
+    public List<Goal> getShortTermGoalsByUser(@PathVariable UUID userId) {
+        return userGoalService.getShortTermGoalsByUser(userId);
+    }
+    @GetMapping("/getGoals/{userId}/midTerm")
+    public List<Goal> getMidTermGoalsByUser(@PathVariable UUID userId) {
+        return userGoalService.getMidTermGoalsByUser(userId);
+    }
+    @GetMapping("/getGoals/{userId}/longTerm")
+    public List<Goal> getLongTermGoalsByUser(@PathVariable UUID userId) {
+        return userGoalService.getLongTermGoalsByUser(userId);
+    }
     
     @PostMapping("/{userId}/{goalId}/transactions-add")
     
