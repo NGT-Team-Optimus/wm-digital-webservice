@@ -5,6 +5,7 @@ import java.util.List;
 
 
 public class JwtRequest {
+	
 	private String email;
 
 	private String password;
@@ -22,8 +23,6 @@ public class JwtRequest {
 		this.password = password;
 	}
 
-	
-
 		public JwtRequest() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -36,12 +35,12 @@ public class JwtRequest {
 			this.password = password;
 
 		}
+		
 		@Override
 		public String toString() {
 			return " email=" + email + ", password=" + password;
 		}
-	
-	
-	
 
 }
+
+

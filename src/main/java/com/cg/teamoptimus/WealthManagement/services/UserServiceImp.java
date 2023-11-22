@@ -12,7 +12,6 @@ import com.cg.teamoptimus.WealthManagement.repository.IUserRepository;
 
 @Service
 public class UserServiceImp implements IUserService {
-	
 
 	@Autowired
 	private IUserRepository userRepo;

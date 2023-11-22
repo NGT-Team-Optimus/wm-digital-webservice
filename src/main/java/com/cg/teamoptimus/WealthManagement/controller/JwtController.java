@@ -54,7 +54,8 @@ public class JwtController {
         String token = jwtUtil.generateToken(userDetails);
         UUID userId = getUserIDFromEmail(jwtRequest.getEmail());
         
-//        return ResponseEntity.ok(new JwtResponse(token));
+        //  return ResponseEntity.ok(new JwtResponse(token));
+
         
         JwtResponse jwtResponse = new JwtResponse(token, userId);
         return ResponseEntity.ok(jwtResponse);

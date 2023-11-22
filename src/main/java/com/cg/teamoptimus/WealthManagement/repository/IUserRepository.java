@@ -12,4 +12,5 @@ public interface IUserRepository extends MongoRepository<User, UUID> {
 	User findByEmail(String email);
 	Boolean existsByEmail(String email);
 	User findByUserId(UUID userId);
+	
 }

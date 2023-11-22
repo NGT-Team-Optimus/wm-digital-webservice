@@ -18,13 +18,11 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
-	 @Autowired
-	    private AuthenticationManager authenticationManager;
 	
-@PostMapping("/signup")
-public UUID register(@RequestBody User user) {
-    return userService.register(user);
-}
+	@PostMapping("/signup")
+	public UUID register(@RequestBody User user) {
+	    return userService.register(user);
+	}
 
 	@GetMapping("/api/forget_password/{email}")
 	public ResponseEntity<String> forgotPassword(@PathVariable("email") String email){
