@@ -1,10 +1,12 @@
 package com.cg.teamoptimus.WealthManagement.model;
 
+import java.time.Duration;
 import java.util.Date;
 import java.util.UUID;
 
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -16,14 +18,17 @@ public class Goal {
 	private String goalName;
 	private Date duration;
 	private Long financialGoalValue;
+	private String goalTerm;
+	private boolean isFirstTimeDurationSet = true;
 
 	public Goal(int goalId, String goalName, Date duration,
-			Long financialGoalValue) {
+			Long financialGoalValue,String goalTerm) {
 		super();
 		this.goalId = goalId; 
 		this.goalName = goalName;
 		this.duration = duration;
 		this.financialGoalValue=financialGoalValue;
+		this.goalTerm=goalTerm;
 	}
 	public int getGoalId() {
 		return goalId;
@@ -41,7 +46,14 @@ public class Goal {
 		return duration;
 	}
 	public void setDuration(Date duration) {
-		this.duration = duration;
+		if (isFirstTimeDurationSet && duration != null) {
+			this.duration = duration;
+			setGoalTerm();
+			isFirstTimeDurationSet = false;
+		} else {
+			this.duration = duration;
+		}
+
 	}
 	
 	public Long getFinancialGoalValue() {
@@ -49,6 +61,27 @@ public class Goal {
 	}
 	public void setFinancialGoalValue(Long financialGoalValue) {
 		this.financialGoalValue = financialGoalValue;
+	}
+
+	public String getGoalTerm() {
+		return goalTerm;
+	}
+
+	private void setGoalTerm() {
+		if (duration != null) {
+			Date currentDate = new Date();
+			long durationInMillis = duration.getTime() - currentDate.getTime();
+			long months = Duration.ofMillis(durationInMillis).toDays() / 30;
+			if (months < 3) {
+				this.goalTerm = "Short Term";
+			} else if (months >= 3 && months < 12) {
+				this.goalTerm = "Mid Term";
+			} else {
+				this.goalTerm = "Long Term";
+			}
+		} else {
+			this.goalTerm = "null";
+		}
 	}
 	@Override
 	public String toString() {

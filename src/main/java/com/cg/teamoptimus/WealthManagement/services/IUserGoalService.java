@@ -5,6 +5,7 @@ import com.cg.teamoptimus.WealthManagement.model.User;
 import com.cg.teamoptimus.WealthManagement.model.UserGoal;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public interface IUserGoalService {
@@ -22,5 +23,9 @@ public interface IUserGoalService {
     public Goal updateOneGoalDetails(UUID userId, int goalId, Date duration, Long financialGoalValue);
 
     public int getGoalCountByUserId(UUID userId);
+    public List<Goal> getShortTermGoalsByUser(UUID userId);
+    public List<Goal> getMidTermGoalsByUser(UUID userId);
+    public List<Goal> getLongTermGoalsByUser(UUID userId);
+
 
 }
