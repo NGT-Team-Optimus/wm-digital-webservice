@@ -1,15 +1,19 @@
 package com.cg.teamoptimus.WealthManagement.model;
 
-import java.util.Date;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+@Document(collection = "transactions")
 public class Transaction {
-    private int transactionId;
+	@Id
+    private String transactionId;
     private Date transactionDate;
     private Long amount;
 
 
-    public Transaction(int transactionId, Date transactionDate, Long amount) {
-        this.transactionId = transactionId;
+    public Transaction(Date transactionDate, Long amount) {
+
         if (transactionDate == null) {
             this.transactionDate = new Date(); // Initialize with the current date if null is provided
         } else {
@@ -18,11 +22,11 @@ public class Transaction {
         this.amount = amount;
     }
 
-	public int getTransactionId() {
+	public String getTransactionId() {
 		return transactionId;
 	}
 
-	public void setTransactionId(int transactionId) {
+	public void setTransactionId(String transactionId) {
 		this.transactionId = transactionId;
 	}
 
