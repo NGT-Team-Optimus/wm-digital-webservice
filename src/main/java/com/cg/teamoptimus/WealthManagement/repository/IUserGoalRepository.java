@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface IUserGoalRepository extends MongoRepository<UserGoal,UUID> {
+public interface IUserGoalRepository extends MongoRepository<UserGoal,String> {
 
 	
 	Goal findGoalByUserUserIdAndGoalsGoalId(UUID userId, int goalId);

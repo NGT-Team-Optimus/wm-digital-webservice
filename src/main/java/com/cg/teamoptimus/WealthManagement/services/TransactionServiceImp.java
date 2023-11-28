@@ -11,7 +11,7 @@ import java.util.List;
 public class TransactionServiceImp implements ITransactionService {
 
     private final List<Transaction> transactions = new ArrayList<>();
-    private int transactionIdCounter = 1;
+
 
     @Override
     public List<Transaction> getAllTransactions() {
@@ -20,7 +20,6 @@ public class TransactionServiceImp implements ITransactionService {
 
     @Override
     public Transaction addTransaction(Transaction transaction) {
-        transaction.setTransactionId(transactionIdCounter++);
         transactions.add(transaction);
         return transaction;
     }

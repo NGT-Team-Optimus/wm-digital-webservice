@@ -5,6 +5,7 @@ import com.cg.teamoptimus.WealthManagement.model.Transaction;
 import com.cg.teamoptimus.WealthManagement.model.User;
 import com.cg.teamoptimus.WealthManagement.model.UserGoal;
 import com.cg.teamoptimus.WealthManagement.repository.IGoalRepository;
+import com.cg.teamoptimus.WealthManagement.repository.ITransactionRepository;
 import com.cg.teamoptimus.WealthManagement.repository.IUserGoalRepository;
 
 import ch.qos.logback.core.status.Status;
@@ -32,6 +33,8 @@ public class UserGoalServiceImp implements IUserGoalService {
     IGoalService goalService;
     @Autowired
     IUserService userService;
+    @Autowired
+    ITransactionRepository transactionRepository;
 
     @Override
     public UserGoal addGoalsByUser(@NotNull UserGoal userGoal) {
@@ -208,16 +211,8 @@ public class UserGoalServiceImp implements IUserGoalService {
 	        if (goalTransactions == null) {
 	            goalTransactions = new ArrayList<>();
 	        }
-	        
-	     // Check for duplicate transaction IDs
-	        boolean isDuplicate = goalTransactions.stream()
-	        	    .anyMatch(existingTransaction -> existingTransaction.getTransactionId() == transaction.getTransactionId());
-	        if (isDuplicate) {
-	        	System.out.println("Same Transaction ID");
-	            return null;
-	        }
-	        
-	        goalTransactions.add(transaction);
+            Transaction newtransaction=transactionRepository.save(transaction);
+	        goalTransactions.add(newtransaction);
             goalToUpdate.setTransactions(goalTransactions);
             Long totalAmount = calculateTotalAmount(goalTransactions);
             goalToUpdate.setTotalAmount(totalAmount);

@@ -4,8 +4,6 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "goals")
@@ -37,6 +35,9 @@ public class Goal {
 		this.goalTerm = goalTerm;
 		this.isFirstTimeDurationSet = isFirstTimeDurationSet;
 	}
+	public Goal() {
+
+	}
 
 
 	public int getGoalId() {
@@ -58,7 +59,7 @@ public class Goal {
 	public void setDuration(Date duration) {
 		if (isFirstTimeDurationSet && duration != null) {
 			this.duration = duration;
-			setGoalTerm();
+			setGoalTerm(goalTerm);
 			isFirstTimeDurationSet = false;
 		} else {
 			this.duration = duration;
@@ -112,7 +113,7 @@ public class Goal {
 		return goalTerm;
 	}
 
-	private void setGoalTerm() {
+	private void setGoalTerm(String goalTerm) {
 		if (duration != null) {
 			Date currentDate = new Date();
 			long durationInMillis = duration.getTime() - currentDate.getTime();
@@ -129,6 +130,13 @@ public class Goal {
 		}
 	}
 
+	public boolean isFirstTimeDurationSet() {
+		return isFirstTimeDurationSet;
+	}
+
+	public void setFirstTimeDurationSet(boolean firstTimeDurationSet) {
+		isFirstTimeDurationSet = firstTimeDurationSet;
+	}
 
 	@Override
 	public String toString() {
