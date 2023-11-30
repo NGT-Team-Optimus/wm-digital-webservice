@@ -1,0 +1,84 @@
+package com.cg.teamoptimus.WealthManagement.scheduler;
+
+import com.cg.teamoptimus.WealthManagement.model.Goal;
+import com.cg.teamoptimus.WealthManagement.model.Notification;
+import com.cg.teamoptimus.WealthManagement.model.User;
+import com.cg.teamoptimus.WealthManagement.model.UserGoal;
+import com.cg.teamoptimus.WealthManagement.repository.INotificationRepository;
+import com.cg.teamoptimus.WealthManagement.repository.IUserGoalRepository;
+import com.cg.teamoptimus.WealthManagement.services.NotificationServiceImp;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+import java.time.Duration;
+import java.util.Date;
+import java.util.List;
+
+@Component
+public class ScheduledNotification {
+
+    private static final Logger log = LoggerFactory.getLogger(ScheduledNotification.class);
+
+    private final IUserGoalRepository userGoalRepository;
+    private final INotificationRepository notificationRepository;
+    private final NotificationServiceImp notificationService;
+
+    @Autowired
+    public ScheduledNotification(IUserGoalRepository userGoalRepository, INotificationRepository notificationRepository, NotificationServiceImp notificationService) {
+        this.userGoalRepository = userGoalRepository;
+        this.notificationRepository = notificationRepository;
+        this.notificationService = notificationService;
+    }
+//    @Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(fixedRate = 60000) // Runs every 60 seconds
+    public void checkAndCreateNotifications() {
+        List<UserGoal> userGoals = userGoalRepository.findAll();
+
+        for (UserGoal userGoal : userGoals) {
+            List<Goal> goals = userGoal.getGoals();
+            for (Goal goal : goals) {
+                if (goal.getStatus().equalsIgnoreCase("completed")) {
+                    continue;
+                }
+
+                long daysRemaining = calculateDaysRemaining(goal.getDuration());
+                if (daysRemaining <= 10) {
+                    createNotification(goal, userGoal.getUser());
+                }
+            }
+        }
+    }
+
+    private long calculateDaysRemaining(Date duration) {
+        if (duration != null) {
+            Date currentDate = new Date();
+            long durationInMillis = duration.getTime() - currentDate.getTime();
+            return Duration.ofMillis(durationInMillis).toDays();
+        }
+        return -1;
+    }
+
+    private void createNotification(Goal goal, User user) {
+        Notification notification = new Notification();
+        notification.setUserId(user.getUserId());
+        notification.setUserName(user.getUsername());
+        notification.setGoalId(goal.getGoalId());
+        notification.setGoalName(goal.getGoalName());
+        
+        long daysRemaining = calculateDaysRemaining(goal.getDuration());
+        if (daysRemaining > 0) {
+            notification.setTimeline(daysRemaining + " Days Left");
+            System.out.println("Hi "+user.getUsername()+", "+daysRemaining+" Days left to complete your "+goal.getGoalName()+" Goal." + new Date());
+        } else {
+            notification.setTimeline("Time End");
+        }
+        
+//        notification.setStatus(goal.getStatus());
+        notificationRepository.save(notification);
+    }
+}
+	
+
