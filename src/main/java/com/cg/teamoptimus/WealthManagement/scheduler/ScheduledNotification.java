@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class ScheduledNotification {
         for (UserGoal userGoal : userGoals) {
             List<Goal> goals = userGoal.getGoals();
             for (Goal goal : goals) {
-                if (goal.getStatus().equalsIgnoreCase("completed")) {
+                if ("completed".equalsIgnoreCase(goal.getStatus())) {
                     continue;
                 }
 
@@ -68,13 +69,17 @@ public class ScheduledNotification {
         notification.setGoalId(goal.getGoalId());
         notification.setGoalName(goal.getGoalName());
         
+        LocalDate notificationDate = LocalDate.now(); // Assign the current system date to notificationDate
+        notification.setNotificationDate(notificationDate);
+        
         long daysRemaining = calculateDaysRemaining(goal.getDuration());
         if (daysRemaining > 0) {
             notification.setTimeline(daysRemaining + " Days Left");
-            System.out.println("Hi "+user.getUsername()+", "+daysRemaining+" Days left to complete your "+goal.getGoalName()+" Goal." + new Date());
+            System.out.println("Hi "+user.getUsername()+", "+daysRemaining+" Days left to complete your "+goal.getGoalName()+" Goal." + notificationDate);
         } else {
             notification.setTimeline("Time End");
         }
+        
         
 //        notification.setStatus(goal.getStatus());
         notificationRepository.save(notification);
