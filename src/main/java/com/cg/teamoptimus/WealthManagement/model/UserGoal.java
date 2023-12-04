@@ -14,6 +14,9 @@ public class UserGoal {
     private User user;
     
     private List<Goal> goals; //All goals
+    private double shortTermGoalsPercentage;
+    private double midTermGoalsPercentage;
+    private double longTermGoalsPercentage;
 
     
     public String getId() {
@@ -47,8 +50,60 @@ public class UserGoal {
     public int getNumberOfGoals() {
         return goals.size();
     }
-    
-    
+    public int getTotalFinancialGoalValuesOfShortTermGoals() {
+        int sum = 0;
+        for (Goal goal : goals) {
+            if (goal.getGoalTerm()!=null &&"Short Term".equals(goal.getGoalTerm()) && goal.getFinancialGoalValue() != null) {
+                sum += goal.getFinancialGoalValue();
+            }
+        }
+        return sum;
+    }
+    public int getTotalFinancialGoalValuesOfMidTermGoals() {
+        int sum = 0;
+        for (Goal goal : goals) {
+            if (goal.getGoalTerm()!=null &&"Mid Term".equals(goal.getGoalTerm()) && goal.getFinancialGoalValue() != null) {
+                sum += goal.getFinancialGoalValue();
+            }
+        }
+        return sum;
+    }
+    public int getTotalFinancialGoalValuesOfLongTermGoals() {
+        int sum = 0;
+        for (Goal goal : goals) {
+            if (goal.getGoalTerm()!=null &&"Long Term".equals(goal.getGoalTerm()) && goal.getFinancialGoalValue() != null) {
+                sum += goal.getFinancialGoalValue();
+            }
+        }
+        return sum;
+    }
+    public int getTotalAmountOfShortTermGoals() {
+        int sum = 0;
+        for (Goal goal : goals) {
+            if (goal.getGoalTerm()!=null &&"Short Term".equals(goal.getGoalTerm()) && goal.getTotalAmount() != null) {
+                sum += goal.getTotalAmount();
+            }
+        }
+        return sum;
+    }
+    public int getTotalAmountOfMidTermGoals() {
+        int sum = 0;
+        for (Goal goal : goals) {
+            if (goal.getGoalTerm()!=null &&"Mid Term".equals(goal.getGoalTerm()) && goal.getTotalAmount() != null) {
+                sum += goal.getTotalAmount();
+            }
+        }
+        return sum;
+    }
+    public int getTotalAmountOfLongTermGoals() {
+        int sum = 0;
+        for (Goal goal : goals) {
+            if (goal.getGoalTerm()!=null &&"Long Term".equals(goal.getGoalTerm()) && goal.getTotalAmount() != null) {
+                sum += goal.getTotalAmount();
+            }
+        }
+        return sum;
+    }
 
     @Override
     public String toString() {
