@@ -52,7 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/add-transaction/{userId}/{goalId}",
                     "/getGoals/{userId}/shortTerm",
                     "/getGoals/{userId}/midTerm",
-                    "/getGoals/{userId}/longTerm").permitAll()
+                    "/getGoals/{userId}/longTerm",
+                    "/getPercentage/shortTermGoals/{userId}").permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
