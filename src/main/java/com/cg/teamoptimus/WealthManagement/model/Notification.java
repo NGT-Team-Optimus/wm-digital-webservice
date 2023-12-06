@@ -1,6 +1,6 @@
 package com.cg.teamoptimus.WealthManagement.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -21,7 +21,7 @@ public class Notification {
     
     private String status= "GOALTIMELINE";
     
-    private LocalDate notificationDate;    //notification created date
+    private LocalDateTime notificationDate;    //notification created date
     
     public Notification() {
         // Default constructor
@@ -95,11 +95,11 @@ public class Notification {
 		this.status = status;
 	}
 	
-	public LocalDate getNotificationDate() {
+	public LocalDateTime getNotificationDate() {
         return notificationDate;
     }
 
-    public void setNotificationDate(LocalDate notificationDate) {
+    public void setNotificationDate(LocalDateTime notificationDate) {
         this.notificationDate = notificationDate;
     }
     

@@ -17,6 +17,8 @@ public interface INotificationService {
 	    Notification saveNotification(Notification notification);
 
 	    void deleteNotificationById(String id);
+	    
+		List<Notification> getLatest12NotificationsForUser(UUID userId);
 
 
 }

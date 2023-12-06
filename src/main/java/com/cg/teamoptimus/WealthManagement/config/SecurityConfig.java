@@ -50,7 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/getNumberOfGoalsForUser/{userId}",
                     "/getGoals/{userId}/shortTerm",
                     "/getGoals/{userId}/midTerm",
-                    "/getGoals/{userId}/longTerm").permitAll()
+                    "/getGoals/{userId}/longTerm",
+                    "/notifications/user/{userId}/latest"
+                    ).permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
