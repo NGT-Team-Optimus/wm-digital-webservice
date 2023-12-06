@@ -91,7 +91,7 @@ public class UserGoalController {
         return userGoalService.getLongTermGoalsByUser(userId);
     }
     
-    @PostMapping("/{userId}/{goalId}/transactions-add")
+    @PostMapping("/{userId}/{goalId}/transactions/add")
     
     public ResponseEntity<String> addTransactionToGoal(
             @PathVariable UUID userId,
