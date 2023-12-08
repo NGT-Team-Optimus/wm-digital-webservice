@@ -15,6 +15,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -69,13 +71,16 @@ public class ScheduledNotification {
         notification.setGoalId(goal.getGoalId());
         notification.setGoalName(goal.getGoalName());
         
-        LocalDate notificationDate = LocalDate.now(); // Assign the current system date to notificationDate
-        notification.setNotificationDate(notificationDate);
+        LocalDateTime notificationDateTime = LocalDateTime.now(ZoneId.systemDefault()); // Get current date and time
+        notification.setNotificationDate(notificationDateTime);
+        
+//        LocalDate notificationDate = LocalDate.now(); // Assign the current system date to notificationDate
+//        notification.setNotificationDate(notificationDate);
         
         long daysRemaining = calculateDaysRemaining(goal.getDuration());
         if (daysRemaining > 0) {
             notification.setTimeline(daysRemaining + " Days Left");
-            System.out.println("Hi "+user.getUsername()+", "+daysRemaining+" Days left to complete your "+goal.getGoalName()+" Goal." + notificationDate);
+            System.out.println("Hi "+user.getUsername()+", "+daysRemaining+" Days left to complete your "+goal.getGoalName()+" Goal." + notificationDateTime);
         } else {
             notification.setTimeline("Time End");
         }
@@ -84,6 +89,10 @@ public class ScheduledNotification {
 //        notification.setStatus(goal.getStatus());
         notificationRepository.save(notification);
     }
+    
+    
+    
+    
 }
 	
 

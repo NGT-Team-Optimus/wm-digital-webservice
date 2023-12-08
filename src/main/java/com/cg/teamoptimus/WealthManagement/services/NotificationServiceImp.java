@@ -1,8 +1,10 @@
 package com.cg.teamoptimus.WealthManagement.services;
 
 import com.cg.teamoptimus.WealthManagement.model.Notification;
+import org.springframework.data.domain.Pageable;
 import com.cg.teamoptimus.WealthManagement.repository.INotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,4 +44,11 @@ public class NotificationServiceImp implements INotificationService {
     public void sendNotification(String message) {
         System.out.println("Sending notification: " + message);
     }
+      
+    @Override
+    public List<Notification> getLatest12NotificationsForUser(UUID userId) {
+        Pageable pageable = PageRequest.of(0, 12); // Limit to 12 results
+        return notificationRepo.findLatestNotificationsForUserWithLimit(userId, pageable);
+    }
+
 }

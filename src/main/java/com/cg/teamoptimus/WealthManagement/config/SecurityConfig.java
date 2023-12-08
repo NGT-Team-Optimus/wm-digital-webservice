@@ -46,11 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             		"/user/api/forget_password/{email}",
             		"/user/api/confirm_password",
             		"/{userId}/{goalId}/transactions",
-            		"/{userId}/{goalId}/transactions-add",
+            		"/{userId}/{goalId}/transactions/add",
                     "/getNumberOfGoalsForUser/{userId}",
                     "/getGoals/{userId}/shortTerm",
                     "/getGoals/{userId}/midTerm",
                     "/getGoals/{userId}/longTerm",
+                    "/notifications/user/{userId}/latest",
                     "/getPercentage/shortTermGoals/{userId}").permitAll()
             .anyRequest().authenticated()
             .and()
