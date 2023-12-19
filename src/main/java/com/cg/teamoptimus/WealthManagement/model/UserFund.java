@@ -78,9 +78,15 @@ public class UserFund {
         return transactionDate;
     }
 
+ // Update the transactionDate with the current system date if not explicitly set
     public void setTransactionDate(Date transactionDate) {
-        this.transactionDate = transactionDate;
+        if (transactionDate == null) {
+            this.transactionDate = new Date(); // Set to system's current date
+        } else {
+            this.transactionDate = transactionDate; // Use provided date if not null
+        }
     }
+
 
     public String getTransactionType() {
         return transactionType;
@@ -97,6 +103,12 @@ public class UserFund {
     public void setClosingBalance(double closingBalance) {
         this.closingBalance = closingBalance;
     }
+    
+ // Calculate the closing balance based on transactions
+    private double calculateClosingBalance() {
+        return openingBalance + amount;
+    }
+
 
 	@Override
 	public String toString() {

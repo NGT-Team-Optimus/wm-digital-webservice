@@ -43,6 +43,8 @@ public class UserFundServiceImp implements IUserFundService {
         UserFund existingFund = userFundRepository.findByFundId(fundId);
         if (existingFund != null) {
             // Update the necessary fields in the existing fund and save
+        	
+        	System.out.println(existingFund);
             existingFund.setUserId(userFund.getUserId());
             existingFund.setOpeningBalance(userFund.getOpeningBalance());
             existingFund.setAmount(userFund.getAmount());
@@ -51,7 +53,7 @@ public class UserFundServiceImp implements IUserFundService {
             existingFund.setClosingBalance(userFund.getClosingBalance());
             return userFundRepository.save(existingFund);
         }
-        return null; // Return null if the fund doesn't exist
+        return null; //fund doesn't exist
     }
 
     @Override
