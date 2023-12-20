@@ -53,6 +53,7 @@ public class UserFundServiceImp implements IUserFundService {
             existingFund.setClosingBalance(userFund.getClosingBalance());
             return userFundRepository.save(existingFund);
         }
+        System.out.println(existingFund);
         return null; //fund doesn't exist
     }
 

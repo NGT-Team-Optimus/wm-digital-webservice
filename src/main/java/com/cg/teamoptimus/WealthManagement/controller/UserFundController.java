@@ -23,21 +23,21 @@ public class UserFundController {
 
     
     
-    // Get all user funds
+    // Get all user funds.
     @GetMapping
     public ResponseEntity<List<UserFund>> getAllUserFunds() {
         List<UserFund> userFunds = userFundService.getAllUserFunds();
         return new ResponseEntity<>(userFunds, HttpStatus.OK);
     }
 
-    // Create a new user fund
+    // Create a new user fund.
     @PostMapping
     public ResponseEntity<UserFund> addUserFund(@RequestBody UserFund userFund) {
         UserFund newUserFund = userFundService.addUserFund(userFund);
         return new ResponseEntity<>(newUserFund, HttpStatus.CREATED);
     }
     
-    // Get user funds by user ID
+    // Get user funds by user ID.
     @GetMapping("/{userId}")
     public ResponseEntity<List<UserFund>> getUserFundsByUserId(@PathVariable UUID userId) {
         List<UserFund> userFunds = userFundService.getUserFundsByUserId(userId);

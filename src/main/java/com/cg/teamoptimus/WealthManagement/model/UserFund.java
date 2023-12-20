@@ -31,8 +31,32 @@ public class UserFund {
         this.transactionDate = transactionDate;
         this.transactionType = transactionType;
         this.closingBalance = closingBalance;
+        recalculateClosingBalance(); // Initialize or update closing balance during object creation
     }
 
+    // Getters and setters for class fields
+
+    // ...
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+        recalculateClosingBalance();
+    }
+
+    public void setTransactionType(String transactionType) {
+        this.transactionType = transactionType;
+        recalculateClosingBalance();
+    }
+
+    private void recalculateClosingBalance() {
+        if (transactionType != null) {
+            if (transactionType.equalsIgnoreCase("deposit")) {
+                this.closingBalance = openingBalance + amount;
+            } else if (transactionType.equalsIgnoreCase("withdraw")) {
+                this.closingBalance = openingBalance - amount;
+            }
+        }
+    }
 
     public String getId() {
         return id;
@@ -70,15 +94,10 @@ public class UserFund {
         return amount;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
     public Date getTransactionDate() {
         return transactionDate;
     }
 
- // Update the transactionDate with the current system date if not explicitly set
     public void setTransactionDate(Date transactionDate) {
         if (transactionDate == null) {
             this.transactionDate = new Date(); // Set to system's current date
@@ -87,13 +106,8 @@ public class UserFund {
         }
     }
 
-
     public String getTransactionType() {
         return transactionType;
-    }
-
-    public void setTransactionType(String transactionType) {
-        this.transactionType = transactionType;
     }
 
     public double getClosingBalance() {
@@ -103,20 +117,18 @@ public class UserFund {
     public void setClosingBalance(double closingBalance) {
         this.closingBalance = closingBalance;
     }
-    
- // Calculate the closing balance based on transactions
-    private double calculateClosingBalance() {
-        return openingBalance + amount;
+
+    @Override
+    public String toString() {
+        return "UserFund{" +
+                "id='" + id + '\'' +
+                ", userId=" + userId +
+                ", fundId='" + fundId + '\'' +
+                ", openingBalance=" + openingBalance +
+                ", amount=" + amount +
+                ", transactionDate=" + transactionDate +
+                ", transactionType='" + transactionType + '\'' +
+                ", closingBalance=" + closingBalance +
+                '}';
     }
-
-
-	@Override
-	public String toString() {
-		return "UserFund [id=" + id + ", userId=" + userId + ", fundId=" + fundId + ", openingBalance=" + openingBalance
-				+ ", amount=" + amount + ", transactionDate=" + transactionDate + ", transactionType=" + transactionType
-				+ ", closingBalance=" + closingBalance + "]";
-	}
-
-    
-
 }
