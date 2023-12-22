@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/user-funds")
+@RequestMapping("/user-funds")
 public class UserFundController {
 
     private final IUserFundService userFundService;
@@ -21,26 +21,29 @@ public class UserFundController {
         this.userFundService = userFundService;
     }
 
-    // Get all user funds
+    
+    
+    // Get all user funds.
     @GetMapping
     public ResponseEntity<List<UserFund>> getAllUserFunds() {
         List<UserFund> userFunds = userFundService.getAllUserFunds();
         return new ResponseEntity<>(userFunds, HttpStatus.OK);
     }
 
-    // Get user funds by user ID
+    // Create a new user fund.
+    @PostMapping
+    public ResponseEntity<UserFund> addUserFund(@RequestBody UserFund userFund) {
+        UserFund newUserFund = userFundService.addUserFund(userFund);
+        return new ResponseEntity<>(newUserFund, HttpStatus.CREATED);
+    }
+    
+    // Get user funds by user ID.
     @GetMapping("/{userId}")
     public ResponseEntity<List<UserFund>> getUserFundsByUserId(@PathVariable UUID userId) {
         List<UserFund> userFunds = userFundService.getUserFundsByUserId(userId);
         return new ResponseEntity<>(userFunds, HttpStatus.OK);
     }
 
-    // Create a new user fund
-    @PostMapping
-    public ResponseEntity<UserFund> addUserFund(@RequestBody UserFund userFund) {
-        UserFund newUserFund = userFundService.addUserFund(userFund);
-        return new ResponseEntity<>(newUserFund, HttpStatus.CREATED);
-    }
 
     // Update user fund by fund ID
     @PutMapping("/{fundId}")

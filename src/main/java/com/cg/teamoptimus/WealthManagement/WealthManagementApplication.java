@@ -10,5 +10,5 @@ public class WealthManagementApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WealthManagementApplication.class, args);
 	}
-
+	
 }
