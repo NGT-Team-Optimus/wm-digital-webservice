@@ -12,4 +12,5 @@ public interface IUserFundService {
     UserFund getUserFundByFundId(String fundId);
     UserFund updateUserFund(String fundId, UserFund userFund); // Modified method signature
     void deleteUserFund(String fundId);
+    public Double getTotalBalance(UUID userId);
 }

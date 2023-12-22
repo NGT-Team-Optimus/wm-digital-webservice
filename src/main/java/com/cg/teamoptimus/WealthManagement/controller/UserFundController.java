@@ -31,7 +31,7 @@ public class UserFundController {
     }
 
     // Create a new user fund.
-    @PostMapping
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<UserFund> addUserFund(@RequestBody UserFund userFund) {
         UserFund newUserFund = userFundService.addUserFund(userFund);
         return new ResponseEntity<>(newUserFund, HttpStatus.CREATED);
@@ -58,4 +58,8 @@ public class UserFundController {
         userFundService.deleteUserFund(fundId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+@GetMapping("/getTotalBalance/{userId}")
+    public Double getTotalBalance(@PathVariable UUID userId){
+        return userFundService.getTotalBalance(userId);
+}
 }
