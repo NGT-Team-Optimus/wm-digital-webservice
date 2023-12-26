@@ -14,9 +14,6 @@ public class UserGoal {
     private User user;
     
     private List<Goal> goals; //All goals
-    private double shortTermGoalsPercentage;
-    private double midTermGoalsPercentage;
-    private double longTermGoalsPercentage;
 
     
     public String getId() {

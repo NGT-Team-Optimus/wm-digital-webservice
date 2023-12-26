@@ -56,9 +56,20 @@ public class UserFundServiceImp implements IUserFundService {
         System.out.println(existingFund);
         return null; //fund doesn't exist
     }
+    @Override
+    public Double getTotalBalance(UUID userId) {
+        double totalBalance = 0L;
+        List<UserFund> userFunds = userFundRepository.findByUserId(userId);
+        for (UserFund userFund : userFunds) {
+            totalBalance += userFund.getClosingBalance();
+
+        }
+        return totalBalance;
+    }
 
     @Override
     public void deleteUserFund(String fundId) {
         userFundRepository.deleteByFundId(fundId);
     }
+
 }
