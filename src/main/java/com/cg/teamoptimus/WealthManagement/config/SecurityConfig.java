@@ -56,7 +56,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/user-funds",
                     "/user-funds/{userId}",
                     "/user-funds/{userId}/{fundId}",
-                    "/getAllAvailableFunds").permitAll()
+                    "/user-funds/{fundId}",
+                    "/getAllAvailableFunds",
+                    "/user-funds/getTotalBalance/{userId}").permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

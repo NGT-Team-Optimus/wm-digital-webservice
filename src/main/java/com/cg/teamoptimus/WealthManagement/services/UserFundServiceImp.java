@@ -76,7 +76,15 @@ public class UserFundServiceImp implements IUserFundService {
         List<UserFund> userFunds = matchingUserFunds.getContent();
         return userFunds;
     }
+    @Override
+    public Double getTotalBalance(UUID userId) {
+        double totalBalance = 0L;
+        List<UserFund> userFunds = userFundRepository.findByUserId(userId);
+        for (UserFund userFund : userFunds) {
+            totalBalance += userFund.getClosingBalance();
 
-
+        }
+        return totalBalance;
+    }
 
 }

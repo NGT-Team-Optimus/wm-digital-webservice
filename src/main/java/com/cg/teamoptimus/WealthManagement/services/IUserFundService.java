@@ -11,4 +11,6 @@ public interface IUserFundService {
     List<UserFund> getUserFundsByUserId(UUID userId);
     List<UserFund> getUserFundByUserIdAndFundId(UUID userId, int fundId);
     UserFund getLatestUserFundByUserIdAndFundId(UUID userId, int fundId);
+//    UserFund getUserFundByFundId(String fundId);
+    public Double getTotalBalance(UUID userId);
 }
