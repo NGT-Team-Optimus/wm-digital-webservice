@@ -55,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/getPercentage/shortTermGoals/{userId}",
                     "/user-funds",
                     "/user-funds/{userId}",
+                    "/user-funds/{userId}/{fundId}",
                     "/user-funds/{fundId}",
                     "/getAllAvailableFunds",
                     "/user-funds/getTotalBalance/{userId}").permitAll()
