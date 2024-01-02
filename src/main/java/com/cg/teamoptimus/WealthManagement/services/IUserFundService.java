@@ -9,8 +9,8 @@ public interface IUserFundService {
     UserFund addUserFund(UserFund userFund);
     List<UserFund> getAllUserFunds();
     List<UserFund> getUserFundsByUserId(UUID userId);
-    UserFund getUserFundByFundId(String fundId);
-    UserFund updateUserFund(String fundId, UserFund userFund); // Modified method signature
-    void deleteUserFund(String fundId);
+    List<UserFund> getUserFundByUserIdAndFundId(UUID userId, int fundId);
+    UserFund getLatestUserFundByUserIdAndFundId(UUID userId, int fundId);
+//    UserFund getUserFundByFundId(String fundId);
     public Double getTotalBalance(UUID userId);
 }

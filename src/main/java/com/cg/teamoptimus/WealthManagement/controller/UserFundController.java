@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -43,22 +44,22 @@ public class UserFundController {
         List<UserFund> userFunds = userFundService.getUserFundsByUserId(userId);
         return new ResponseEntity<>(userFunds, HttpStatus.OK);
     }
-
-
-    // Update user fund by fund ID
-    @PutMapping("/{fundId}")
-    public ResponseEntity<UserFund> updateUserFund(@PathVariable String fundId, @RequestBody UserFund userFund) {
-        UserFund updatedUserFund = userFundService.updateUserFund(fundId, userFund);
-        return new ResponseEntity<>(updatedUserFund, HttpStatus.OK);
+    
+ // Get user fund by user ID and fund ID.
+    @GetMapping("/{userId}/{fundId}")
+    public ResponseEntity<List<UserFund>> getUserFundByUserIdAndFundId(
+            @PathVariable UUID userId, @PathVariable int fundId) {
+        List<UserFund> userFunds = userFundService.getUserFundByUserIdAndFundId(userId, fundId);
+        
+        if (!userFunds.isEmpty()) {
+            return new ResponseEntity<>(userFunds, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    // Delete user fund by fund ID
-    @DeleteMapping("/{fundId}")
-    public ResponseEntity<?> deleteUserFund(@PathVariable String fundId) {
-        userFundService.deleteUserFund(fundId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-@GetMapping("/getTotalBalance/{userId}")
+
+    @GetMapping("/getTotalBalance/{userId}")
     public Double getTotalBalance(@PathVariable UUID userId){
         return userFundService.getTotalBalance(userId);
 }

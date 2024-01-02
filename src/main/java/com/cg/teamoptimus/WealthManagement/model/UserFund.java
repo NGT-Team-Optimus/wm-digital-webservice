@@ -12,7 +12,7 @@ public class UserFund {
     private String id;
 
     private UUID userId;
-    private String fundId;
+    private int fundId;
     private double openingBalance;
     private double amount;
     private Date transactionDate;
@@ -22,7 +22,7 @@ public class UserFund {
     public UserFund() {
     }
 
-    public UserFund(UUID userId, String fundId, double openingBalance, double amount, Date transactionDate,
+    public UserFund(UUID userId, int fundId, double openingBalance, double amount, Date transactionDate,
                     String transactionType, double closingBalance) {
         this.userId = userId;
         this.fundId = fundId;
@@ -74,11 +74,11 @@ public class UserFund {
         this.userId = userId;
     }
 
-    public String getFundId() {
+    public int getFundId() {
         return fundId;
     }
 
-    public void setFundId(String fundId) {
+    public void setFundId(int fundId) {
         this.fundId = fundId;
     }
 
