@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserFundServiceImp implements IUserFundService {
@@ -78,11 +76,24 @@ public class UserFundServiceImp implements IUserFundService {
     }
     @Override
     public Double getTotalBalance(UUID userId) {
-        double totalBalance = 0L;
+        double totalBalance = 0.0;
+        Map<Integer, UserFund> latestFundsMap = new HashMap<>();
         List<UserFund> userFunds = userFundRepository.findByUserId(userId);
         for (UserFund userFund : userFunds) {
-            totalBalance += userFund.getClosingBalance();
-
+            int fundId = userFund.getFundId();
+            if (!latestFundsMap.containsKey(fundId)) {
+                // If fundId is not present in the map, add it
+                latestFundsMap.put(fundId, userFund);
+            } else {
+                UserFund currentLatest = latestFundsMap.get(fundId);
+                if (userFund.getTransactionDate().after(currentLatest.getTransactionDate())) {
+                    latestFundsMap.put(fundId, userFund);
+                }
+            }
+        }
+        // Calculate total balance using the latest UserFunds
+        for (UserFund latestUserFund : latestFundsMap.values()) {
+            totalBalance += latestUserFund.getClosingBalance();
         }
         return totalBalance;
     }
