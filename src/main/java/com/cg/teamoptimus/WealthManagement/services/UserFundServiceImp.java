@@ -16,6 +16,8 @@ import java.util.*;
 public class UserFundServiceImp implements IUserFundService {
 
     private final IUserFundRepository userFundRepository;
+    @Autowired
+    private IFundService fundService;
 
     @Autowired
     public UserFundServiceImp(IUserFundRepository userFundRepository) {
@@ -27,8 +29,8 @@ public class UserFundServiceImp implements IUserFundService {
         if (userFund.getTransactionDate() == null) {
             userFund.setTransactionDate(new Date());
         }
-        
-        UserFund existingUserFund = getLatestUserFundByUserIdAndFundId(userFund.getUserId(), userFund.getFundId());
+        int fundId= fundService.getfundIdByFundName(userFund.getFundName());
+        UserFund existingUserFund = getLatestUserFundByUserIdAndFundId(userFund.getUserId(), fundId);
 
         if (existingUserFund != null) {
             userFund.setOpeningBalance(existingUserFund.getClosingBalance());
@@ -38,6 +40,7 @@ public class UserFundServiceImp implements IUserFundService {
         }
         
         userFund.setAmount(userFund.getAmount());
+        userFund.setFundId(fundId);
         
         return userFundRepository.save(userFund);
     }

@@ -11,8 +11,14 @@ import java.util.List;
 public class FundServiceImp implements IFundService{
     @Autowired
     IFundRepository fundRepo;
+    @Override
     public List<Fund> getAllAvailableFunds(){
         return fundRepo.findAll();
 
+    }
+    @Override
+    public int getfundIdByFundName(String fundName) {
+        Fund fund=fundRepo.findByFundName(fundName);
+        return fund.getFundId();
     }
 }
