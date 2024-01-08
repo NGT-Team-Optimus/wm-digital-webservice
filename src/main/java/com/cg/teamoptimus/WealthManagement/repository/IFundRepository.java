@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IFundRepository extends MongoRepository<Fund,Integer> {
-
+    Fund findByFundName(String fundName);
 }
