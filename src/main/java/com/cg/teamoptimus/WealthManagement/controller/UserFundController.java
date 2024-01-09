@@ -3,10 +3,12 @@ package com.cg.teamoptimus.WealthManagement.controller;
 import com.cg.teamoptimus.WealthManagement.model.UserFund;
 import com.cg.teamoptimus.WealthManagement.services.IUserFundService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -63,4 +65,11 @@ public class UserFundController {
     public Double getTotalBalance(@PathVariable UUID userId){
         return userFundService.getTotalBalance(userId);
 }
+    @GetMapping("/filteruserfunds/{userId}")
+    public List<UserFund> filterUserFunds(@PathVariable UUID userId,
+                                          @RequestParam("fromDate") @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate fromDate,
+                                          @RequestParam("toDate") @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate toDate){
+        return userFundService.filterUserFunds(userId,fromDate,toDate);
+
+    }
 }
