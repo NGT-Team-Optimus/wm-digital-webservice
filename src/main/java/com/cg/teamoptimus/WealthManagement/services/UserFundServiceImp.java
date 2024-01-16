@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserFundServiceImp implements IUserFundService {
@@ -99,6 +102,18 @@ public class UserFundServiceImp implements IUserFundService {
             totalBalance += latestUserFund.getClosingBalance();
         }
         return totalBalance;
+    }
+    @Override
+    public List<UserFund> filterUserFunds(UUID userId,LocalDate fromDate,LocalDate toDate){
+        List<UserFund> userFunds=getUserFundsByUserId(userId);
+        List<UserFund> filteredUserFunds = userFunds.stream()
+                .filter(userFund -> {
+                    LocalDate transactionDate = userFund.getTransactionDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    return !transactionDate.isBefore(fromDate) && !transactionDate.isAfter(toDate);
+                })
+                .collect(Collectors.toList());
+        return filteredUserFunds;
+
     }
 
 }
