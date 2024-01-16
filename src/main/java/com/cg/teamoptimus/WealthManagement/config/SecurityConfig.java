@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             		"/user/api/forget_password/{email}",
             		"/user/api/confirm_password",
             		"/{userId}/{goalId}/transactions",
-            		"/{userId}/{goalId}/transactions/add",
+            		"/{userId}/{goalId}/{fundId}/transactions/add",
                     "/getNumberOfGoalsForUser/{userId}",
                     "/getGoals/{userId}/shortTerm",
                     "/getGoals/{userId}/midTerm",
