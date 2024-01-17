@@ -91,15 +91,14 @@ public class UserGoalController {
         return userGoalService.getLongTermGoalsByUser(userId);
     }
     
-    @PostMapping("/{userId}/{goalId}/{fundId}/transactions/add")
+    @PostMapping("/{userId}/{goalId}/transactions/add")
     
     public ResponseEntity<String> addTransactionToGoal(
             @PathVariable UUID userId,
             @PathVariable int goalId,
-            @PathVariable int fundId,
             @RequestBody Transaction transaction) {
 
-        Transaction addedTransaction = userGoalService.addTransactionToGoal(userId, goalId, fundId,transaction);
+        Transaction addedTransaction = userGoalService.addTransactionToGoal(userId, goalId,transaction);
         if (addedTransaction == null) {
             return ResponseEntity.ok("Insuffient Fund");
         }

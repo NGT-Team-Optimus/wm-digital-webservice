@@ -24,7 +24,7 @@ public interface IUserGoalService {
 
     List<Transaction> getAllTransactionsForUserGoal(UUID userId);
     
-    Transaction addTransactionToGoal(UUID userId, int goalId,int fundId, Transaction transaction);
+    Transaction addTransactionToGoal(UUID userId, int goalId, Transaction transaction);
 
     List<Transaction> getAllTransactionsForGoal(UUID userId, int goalId);
 

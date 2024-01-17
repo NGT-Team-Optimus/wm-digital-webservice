@@ -194,9 +194,9 @@ public class UserGoalServiceImp implements IUserGoalService {
     }
 	
 	 @Override
-	    public Transaction addTransactionToGoal(UUID userId, int goalId,int fundId,Transaction transaction) {
+	    public Transaction addTransactionToGoal(UUID userId, int goalId,Transaction transaction) {
 	        UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
-            UserFund existingUserFund=userFundService.getLatestUserFundByUserIdAndFundId(userId,fundId);
+            UserFund existingUserFund=userFundService.getLatestUserFundByUserIdAndFundId(userId,transaction.getFundId());
 
 	        if (userGoal == null || existingUserFund == null) {
 	            return null;
@@ -231,7 +231,7 @@ public class UserGoalServiceImp implements IUserGoalService {
 
          UserFund newUserFund = new UserFund(
                  userId,
-                 fundId,
+                 transaction.getFundId(),
                  existingUserFund.getClosingBalance(),
                  transaction.getAmount(),
                  new Date(),

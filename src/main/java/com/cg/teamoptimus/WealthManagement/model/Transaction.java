@@ -11,9 +11,10 @@ public class Transaction {
     private String transactionId;
     private Date transactionDate;
     private Long amount;
+	private int fundId;
 
 
-    public Transaction(Date transactionDate, Long amount) {
+    public Transaction(Date transactionDate, Long amount,int fundId) {
 
         if (transactionDate == null) {
             this.transactionDate = new Date(); // Initialize with the current date if null is provided
@@ -21,7 +22,12 @@ public class Transaction {
             this.transactionDate = transactionDate; // Use provided transactionDate
         }
         this.amount = amount;
+		this.fundId=fundId;
     }
+
+	public Transaction() {
+
+	}
 
 	public String getTransactionId() {
 		return transactionId;
@@ -47,10 +53,21 @@ public class Transaction {
 		this.amount = amount;
 	}
 
-	@Override
-	public String toString() {
-		return "Transaction [transactionId=" + transactionId + ", transactionDate=" + transactionDate + ", amount="
-				+ amount + "]";
+	public int getFundId() {
+		return fundId;
 	}
 
+	public void setFundId(int fundId) {
+		this.fundId = fundId;
+	}
+
+	@Override
+	public String toString() {
+		return "Transaction{" +
+				"transactionId='" + transactionId + '\'' +
+				", transactionDate=" + transactionDate +
+				", amount=" + amount +
+				", fundId=" + fundId +
+				'}';
+	}
 }
