@@ -42,7 +42,12 @@ public class Transaction {
 	}
 
 	public void setTransactionDate(Date transactionDate) {
-		this.transactionDate = transactionDate;
+
+		if (transactionDate == null) {
+			this.transactionDate = new Date(); // Initialize with the current date if null is provided
+		} else {
+			this.transactionDate = transactionDate; // Use provided transactionDate
+		}
 	}
 
 	public Long getAmount() {

@@ -223,10 +223,12 @@ public class UserGoalServiceImp implements IUserGoalService {
             }
 
             Transaction newtransaction=transactionRepository.save(transaction);
+            newtransaction.setTransactionDate(null);
 	        goalTransactions.add(newtransaction);
             goalToUpdate.setTransactions(goalTransactions);
             Long totalAmount = calculateTotalAmount(goalTransactions);
             goalToUpdate.setTotalAmount(totalAmount);
+
 
 
          UserFund newUserFund = new UserFund(
