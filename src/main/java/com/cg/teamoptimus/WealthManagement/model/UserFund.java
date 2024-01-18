@@ -54,7 +54,7 @@ public class UserFund {
         if (transactionType != null) {
             if (transactionType.equalsIgnoreCase("deposit")) {
                 this.closingBalance = openingBalance + amount;
-            } else if (transactionType.equalsIgnoreCase("withdraw")) {
+            } else if ((transactionType.equalsIgnoreCase("withdraw"))|| (transactionType.equalsIgnoreCase("transferToGoal"))) {
                 this.closingBalance = openingBalance - amount;
             }
         }

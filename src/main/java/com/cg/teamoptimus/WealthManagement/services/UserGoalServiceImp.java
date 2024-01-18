@@ -1,11 +1,9 @@
 package com.cg.teamoptimus.WealthManagement.services;
 
-import com.cg.teamoptimus.WealthManagement.model.Goal;
-import com.cg.teamoptimus.WealthManagement.model.Transaction;
-import com.cg.teamoptimus.WealthManagement.model.User;
-import com.cg.teamoptimus.WealthManagement.model.UserGoal;
+import com.cg.teamoptimus.WealthManagement.model.*;
 import com.cg.teamoptimus.WealthManagement.repository.IGoalRepository;
 import com.cg.teamoptimus.WealthManagement.repository.ITransactionRepository;
+import com.cg.teamoptimus.WealthManagement.repository.IUserFundRepository;
 import com.cg.teamoptimus.WealthManagement.repository.IUserGoalRepository;
 
 import ch.qos.logback.core.status.Status;
@@ -35,6 +33,14 @@ public class UserGoalServiceImp implements IUserGoalService {
     IUserService userService;
     @Autowired
     ITransactionRepository transactionRepository;
+    @Autowired
+    IUserFundService userFundService;
+
+    @Autowired
+    IUserFundRepository userFundRepo;
+
+    @Autowired
+    IFundService fundService;
 
     @Override
     public UserGoal addGoalsByUser(@NotNull UserGoal userGoal) {
@@ -188,13 +194,14 @@ public class UserGoalServiceImp implements IUserGoalService {
     }
 	
 	 @Override
-	    public Transaction addTransactionToGoal(UUID userId, int goalId, Transaction transaction) {
+	    public Transaction addTransactionToGoal(UUID userId, int goalId,Transaction transaction) {
 	        UserGoal userGoal = userGoalRepo.findByUserUserId(userId);
-	        
-	        if (userGoal == null) {
+            UserFund existingUserFund=userFundService.getLatestUserFundByUserIdAndFundId(userId,transaction.getFundId());
+
+	        if (userGoal == null || existingUserFund == null) {
 	            return null;
 	        }
-	        
+
 	        Goal goalToUpdate = null;
 	        for (Goal goal : userGoal.getGoals()) {
 	            if (goal.getGoalId() == goalId) {
@@ -211,11 +218,29 @@ public class UserGoalServiceImp implements IUserGoalService {
 	        if (goalTransactions == null) {
 	            goalTransactions = new ArrayList<>();
 	        }
+            if(transaction.getAmount()>existingUserFund.getClosingBalance()){
+                return null;
+            }
+
             Transaction newtransaction=transactionRepository.save(transaction);
+            newtransaction.setTransactionDate(null);
 	        goalTransactions.add(newtransaction);
             goalToUpdate.setTransactions(goalTransactions);
             Long totalAmount = calculateTotalAmount(goalTransactions);
             goalToUpdate.setTotalAmount(totalAmount);
+
+
+
+         UserFund newUserFund = new UserFund(
+                 userId,
+                 transaction.getFundId(),
+                 existingUserFund.getClosingBalance(),
+                 transaction.getAmount(),
+                 new Date(),
+                 "transferToGoal",
+                 existingUserFund.getClosingBalance() - transaction.getAmount(),
+                 existingUserFund.getFundName()
+         );
             
             
             if (goalToUpdate.getFinancialGoalValue() != null) {
@@ -227,6 +252,7 @@ public class UserGoalServiceImp implements IUserGoalService {
             }
 
             userGoalRepo.save(userGoal);
+            userFundRepo.save(newUserFund);
 
             return transaction;
 	    }

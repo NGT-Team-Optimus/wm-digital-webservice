@@ -98,9 +98,9 @@ public class UserGoalController {
             @PathVariable int goalId,
             @RequestBody Transaction transaction) {
 
-        Transaction addedTransaction = userGoalService.addTransactionToGoal(userId, goalId, transaction);
+        Transaction addedTransaction = userGoalService.addTransactionToGoal(userId, goalId,transaction);
         if (addedTransaction == null) {
-            return ResponseEntity.ok("Error => Same Transaction ID");
+            return ResponseEntity.ok("Insuffient Fund");
         }
         return ResponseEntity.ok("Transaction added successfully");
     }
