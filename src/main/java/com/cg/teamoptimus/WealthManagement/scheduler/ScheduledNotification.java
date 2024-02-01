@@ -47,22 +47,31 @@ public class ScheduledNotification {
                     continue;
                 }
 
-                long daysRemaining = calculateDaysRemaining(goal.getDuration());
-                if (daysRemaining <= 10) {
+                Long daysRemaining = calculateDaysRemaining(goal.getDuration());
+                if (daysRemaining <= 10 && daysRemaining != null) {
                     createNotification(goal, userGoal.getUser());
                 }
             }
         }
     }
 
-    private long calculateDaysRemaining(Date duration) {
+//    private long calculateDaysRemaining(Date duration) {
+//        if (duration != null) {
+//            Date currentDate = new Date();
+//            long durationInMillis = duration.getTime() - currentDate.getTime();
+//            return Duration.ofMillis(durationInMillis).toDays();
+//        }
+//        return null;
+//    }
+    private Long calculateDaysRemaining(Date duration) {
         if (duration != null) {
             Date currentDate = new Date();
             long durationInMillis = duration.getTime() - currentDate.getTime();
             return Duration.ofMillis(durationInMillis).toDays();
         }
-        return -1;
+        return null;
     }
+
 
     private void createNotification(Goal goal, User user) {
         Notification notification = new Notification();
