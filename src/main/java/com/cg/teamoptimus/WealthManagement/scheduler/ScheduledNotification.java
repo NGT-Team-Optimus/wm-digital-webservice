@@ -35,8 +35,8 @@ public class ScheduledNotification {
         this.notificationRepository = notificationRepository;
         this.notificationService = notificationService;
     }
-    @Scheduled(cron = "0 0 0 * * ?")
-//    @Scheduled(fixedRate = 3600000) // Runs every hour.
+//    @Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(fixedRate = 3600000) // Runs every hour.
     public void checkAndCreateNotifications() {
         List<UserGoal> userGoals = userGoalRepository.findAll();
 
