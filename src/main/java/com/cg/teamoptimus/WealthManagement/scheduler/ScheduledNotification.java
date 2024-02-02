@@ -36,7 +36,7 @@ public class ScheduledNotification {
         this.notificationService = notificationService;
     }
 //    @Scheduled(cron = "0 0 0 * * ?")
-    @Scheduled(fixedRate = 60000) // Runs every 60 seconds
+    @Scheduled(fixedRate = 3600000) // Runs every hour.
     public void checkAndCreateNotifications() {
         List<UserGoal> userGoals = userGoalRepository.findAll();
 
@@ -55,14 +55,7 @@ public class ScheduledNotification {
         }
     }
 
-//    private long calculateDaysRemaining(Date duration) {
-//        if (duration != null) {
-//            Date currentDate = new Date();
-//            long durationInMillis = duration.getTime() - currentDate.getTime();
-//            return Duration.ofMillis(durationInMillis).toDays();
-//        }
-//        return null;
-//    }
+
     private Long calculateDaysRemaining(Date duration) {
         if (duration != null) {
             Date currentDate = new Date();
